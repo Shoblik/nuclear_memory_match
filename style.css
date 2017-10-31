@@ -45,7 +45,9 @@ main > .row {
     height: 81.5vh;
     width: 100%;
     color: white;
-    border: solid 2px white;
+    border: 2px solid white;
+    border-top: none;
+    border-bottom: none;
 }
 
 .leftBar .wrapper h4 {
