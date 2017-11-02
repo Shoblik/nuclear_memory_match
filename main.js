@@ -1,6 +1,7 @@
 $(document).ready(function() {
 $('.card').on('click', cardHandler);
 $('.reset').on('click', reset);
+
 });
 var totalCards = 0;
 var cardCount = 0;
@@ -12,6 +13,7 @@ var first;
 var second;
 var firstCard;
 var secondCard;
+
 
 function reset() {
     timesPlayed++;
@@ -29,6 +31,19 @@ function reset() {
     $('.timesPlayed').text(timesPlayed);
     $('.accuracy').text(accuracy.toFixed(1) + '%');
     $('.tryCount').text(tryCount);
+
+    /////////////////////////////////////////////////////////
+        var staticCardArr = [1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9];
+        var cardArr = staticCardArr.slice();
+
+        var cards = $('.row').find('.card .front')
+        for (var i=0;i<cards.length;i++) {
+            var randomNum = Math.floor((Math.random() * cardArr.length + 1));
+            $(cards[i]).text(cardArr[randomNum]).attr('compare', cardArr[randomNum]);
+            cardArr.splice(randomNum, 1);
+        }
+
+
 
 }
 function cardHandler() {
