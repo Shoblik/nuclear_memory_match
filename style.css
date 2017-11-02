@@ -125,9 +125,8 @@ main {
     margin-left: 20%;
 }
 img {
-    height: 80px;
-    width: 80px;
+    height: 45%;
     position: relative;
-    top: 50%
-
+    top: 50%;
+    transform: translate(0,-50%);
 }
