@@ -17,11 +17,22 @@ header {
 header h1 {
     margin: 0;
     position: relative;
-    top: 50%;
-    transform: translate(0,-50%);
+    top: 4vh;
     color: white;
     font-size: 3em;
+    display: inline-block;
 }
+.reset {
+    position: relative;
+    left: 23%;
+    top: 3vh;
+    width: 100px;
+    height: 50px;
+    color: white;
+    background-color: red;
+    border: none;
+}
+
 
 /*Main content area/////////////////////////////////////////////////////////////*/
 main > .row {
@@ -56,6 +67,10 @@ main > .row {
     width: 100%;
     height: 100%;
 }
+.card .foundCard {
+background-color: rgba(34,139,34, .7);
+transition: 1s;
+}
 main {
     transform: translate(10%);
     width: 58vw;
@@ -87,16 +102,6 @@ main {
     text-align: left;
     margin-left: 5%;
 }
-.reset {
-    position: relative;
-    transform: translate(-50%);
-    left: 50%;
-    width: 100px;
-    height: 50px;
-    color: white;
-    background-color: red;
-    border: none;
-}
 .leftBar .wrapper {
     position: relative;
     display: inline-block;
@@ -118,4 +123,11 @@ main {
     height: 50px;
     font-size: 3rem;
     margin-left: 20%;
+}
+img {
+    height: 80px;
+    width: 80px;
+    position: relative;
+    top: 50%
+
 }
