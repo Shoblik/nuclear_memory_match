@@ -79,7 +79,8 @@ main {
 .leftBar .wrapper h4 {
     font-size: 165%;
     text-align: left;
-    margin-left: 3%;
+    margin: 5% 0 0 3%;
+
 }
 .leftBar .wrapper h3 {
     font-size: 220%;
@@ -112,4 +113,9 @@ main {
     border: 2px solid white;
     border-top: none;
     border-bottom: none;
+}
+.tryCount, .timesPlayed, .accuracy {
+    height: 50px;
+    font-size: 3rem;
+    margin-left: 20%;
 }
