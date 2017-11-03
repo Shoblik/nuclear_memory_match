@@ -106,16 +106,17 @@ function cardHandler() {
                 firstCard.removeClass('backFlip').css('transition', '1.0s');
                 secondCard.removeClass('backFlip').css('transition', '1.0s');
                 cardCount = 0;
+            }, 1000);
 
-                /////////////AI implementation/////////////////////////////////////////////////////
+            ////////////////AI implementation//////////////////////////////////////////////////
+            setTimeout(function() {
                 compMemory.push(first,second);
                 playerOne = false;
                 var cardsNotFlipped = $('.card').not('.backFlip');
                 var randomCard = Math.floor((Math.random() * cardsNotFlipped.length));
 
                 $(cardsNotFlipped[randomCard]).addClass('backFlip');
-            }, 1000);
-
+            }, 2000);
 
         }
 
