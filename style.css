@@ -57,6 +57,7 @@ main > .row {
 .card .front {
     background-color: rgba(0,0,0,.7);
     transform: rotateY(180deg);
+
 }
 .front, .back {
     color: white;
