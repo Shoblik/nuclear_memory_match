@@ -22,6 +22,7 @@ var secondCard;
 var disqualCount;
 var playerOne = true;
 var compMemory = [];
+var pickAnotherCard = true;
 
 
 function reset() {
@@ -39,7 +40,7 @@ function reset() {
     second;
     firstCard;
     secondCard;
-    compMemory = [1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9];
+    compMemory = [];
     $('.timesPlayed').text(timesPlayed);
     $('.accuracy').text(accuracy.toFixed(1) + '%');
     $('.tryCount').text(tryCount);
@@ -125,6 +126,7 @@ function compare() {
 ////////////////AI implementation//////////////////////////////////////////////////
 function cpu() {
     setTimeout(function() {
+        pickAnotherCard = true;
         //Store the cards it has seen into computer memory
         compMemory.push(first,second);
         //Pick a card randomly and flip it
@@ -134,39 +136,45 @@ function cpu() {
         $(compCard).addClass('backFlip');
         //look at the cards compare value, if it exists in the computers memory, find it
         first = $(compCard).find('.front').attr('compare');
-    }, 1000);
 
+        setTimeout(function() {
         for (var i=0;i<compMemory.length-1;i++) {
             if (compMemory[i] == first) {
-                setTimeout(function() {
-                    $('[compare='+first+']').parent().addClass('backFlip');
-                    $('[compare='+first+']').addClass('compFoundCard');
-                    playerOne = true;
-
-                }, 2000);
+                $('[compare=' + first + ']').parent().addClass('backFlip');
+                $('[compare=' + first + ']').addClass('compFoundCard');
+                playerOne = true;
+                pickAnotherCard = false;
+                cpu();
+                break;
+                }
             }
-            else {
-                setTimeout(function() {
-                    randomCard = Math.floor((Math.random() * cardsNotFlipped.length));
-                    cardsNotFlipped = $('.card').not('.backFlip');
-                    $(cardsNotFlipped[randomCard]).addClass('backFlip');
-                    var second = $(cardsNotFlipped[randomCard]).find('.front').attr('compare');
-                    if (first == second) {
-                        $('[compare='+first+']').addClass('compFoundCard');
-                        
-                    }
-                    else {
-                        ///THis one doesnt play nice
-                        setTimeout(function() {
-                            playerOne = true;
-                            $('[compare='+first+']').parent().removeClass('backFlip');
-                            $('[compare='+second+']').parent().removeClass('backFlip');
-                            return;
+        }, 1000);
 
-                        }, 1000);
-                        //////////////////////////////////////////////////////////
-                    }
-                }, 1000);
-            }
-        }
+
+                    setTimeout(function () {
+                        if (pickAnotherCard === true) {
+                            randomCard = Math.floor((Math.random() * cardsNotFlipped.length));
+                            cardsNotFlipped = $('.card').not('.backFlip');
+                            $(cardsNotFlipped[randomCard]).addClass('backFlip');
+                            var second = $(cardsNotFlipped[randomCard]).find('.front').attr('compare');
+                            if (first == second) {
+                                $('[compare=' + first + ']').addClass('compFoundCard');
+
+                            }
+                            else {
+                                ///This one doesn't play nice
+                                setTimeout(function () {
+                                    playerOne = true;
+                                    $('[compare=' + first + ']').parent().removeClass('backFlip');
+                                    $('[compare=' + second + ']').parent().removeClass('backFlip');
+
+
+                                }, 1000);
+                                //////////////////////////////////////////////////////////
+
+                            }
+                        }
+                    }, 1000);
+
+    }, 1000);
 }
