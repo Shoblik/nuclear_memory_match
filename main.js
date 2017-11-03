@@ -7,7 +7,7 @@ $(document).ready(function() {
     $('.accuracy').on('click', function() {
        $('.card').toggleClass('backFlip');
     });
-
+    ///////////////////////////////////////////////////////////////////////////////////
 });
 var totalCards = 0;
 var cardCount = 0;
@@ -39,6 +39,7 @@ function reset() {
     second;
     firstCard;
     secondCard;
+    compMemory = [1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9];
     $('.timesPlayed').text(timesPlayed);
     $('.accuracy').text(accuracy.toFixed(1) + '%');
     $('.tryCount').text(tryCount);
@@ -83,48 +84,89 @@ function cardHandler() {
         secondCard.addClass('backFlip');
         totalCards++;
         cardCount++;
-
-        if (first === second) {
-            //if the cards match things match here and card count get's reset to 0
-            setTimeout(function() {
-                firstCard.find('.front').addClass('foundCard');
-                secondCard.find('.front').addClass('foundCard');
-                console.log('matched!!!!!!!!!');
-                cardCount = 0;
-            }, 500);
-            matchCount++;
-            if (first === second && matchCount === 9) {
-                console.log('YOU WIN');
-                timesPlayed++;
-                $('.timesPlayed').text(timesPlayed);
-            }
-        }
-        else {
-            //If the cards don't match flip them back over and set cardCount to 0
-            console.log('no matches here!!!!!');
-            setTimeout(function() {
-                firstCard.removeClass('backFlip').css('transition', '1.0s');
-                secondCard.removeClass('backFlip').css('transition', '1.0s');
-                cardCount = 0;
-            }, 1000);
-
-            ////////////////AI implementation//////////////////////////////////////////////////
-            setTimeout(function() {
-                compMemory.push(first,second);
-                playerOne = false;
-                var cardsNotFlipped = $('.card').not('.backFlip');
-                var randomCard = Math.floor((Math.random() * cardsNotFlipped.length));
-
-                $(cardsNotFlipped[randomCard]).addClass('backFlip');
-            }, 2000);
-
-        }
-
-        accuracy = (matchCount / totalCards) * 100;
-        $('.accuracy').text(accuracy.toFixed(1) + '%');
+        compare();
     }
 
 }
 
+function compare() {
+    if (first === second) {
+        //if the cards match things match here and card count get's reset to 0
+        setTimeout(function() {
+            firstCard.find('.front').addClass('foundCard');
+            secondCard.find('.front').addClass('foundCard');
+            console.log('matched!!!!!!!!!');
+            cardCount = 0;
+        }, 500);
+        matchCount++;
+        if (first === second && matchCount === 9) {
+            console.log('YOU WIN');
+            timesPlayed++;
+            $('.timesPlayed').text(timesPlayed);
+        }
+    }
+    else {
+        //If the cards don't match flip them back over and set cardCount to 0
+        console.log('no matches here!!!!!');
+        setTimeout(function() {
+            firstCard.removeClass('backFlip').css('transition', '1.0s');
+            secondCard.removeClass('backFlip').css('transition', '1.0s');
+            cardCount = 0;
+            if (playerOne === true) {
+                accuracy = (matchCount / totalCards) * 100;
+                $('.accuracy').text(accuracy.toFixed(1) + '%');
+            }
+            playerOne = false;
+            cpu();
+        }, 1000);
+    }
+}
 
+////////////////AI implementation//////////////////////////////////////////////////
+function cpu() {
+    setTimeout(function() {
+        //Store the cards it has seen into computer memory
+        compMemory.push(first,second);
+        //Pick a card randomly and flip it
+        var cardsNotFlipped = $('.card').not('.backFlip');
+        var randomCard = Math.floor((Math.random() * cardsNotFlipped.length));
+        var compCard = cardsNotFlipped[randomCard];
+        $(compCard).addClass('backFlip');
+        //look at the cards compare value, if it exists in the computers memory, find it
+        first = $(compCard).find('.front').attr('compare');
+    }, 1000);
 
+        for (var i=0;i<compMemory.length-1;i++) {
+            if (compMemory[i] == first) {
+                setTimeout(function() {
+                    $('[compare='+first+']').parent().addClass('backFlip');
+                    $('[compare='+first+']').addClass('compFoundCard');
+                    playerOne = true;
+
+                }, 2000);
+            }
+            else {
+                setTimeout(function() {
+                    randomCard = Math.floor((Math.random() * cardsNotFlipped.length));
+                    cardsNotFlipped = $('.card').not('.backFlip');
+                    $(cardsNotFlipped[randomCard]).addClass('backFlip');
+                    var second = $(cardsNotFlipped[randomCard]).find('.front').attr('compare');
+                    if (first == second) {
+                        $('[compare='+first+']').addClass('compFoundCard');
+                        
+                    }
+                    else {
+                        ///THis one doesnt play nice
+                        setTimeout(function() {
+                            playerOne = true;
+                            $('[compare='+first+']').parent().removeClass('backFlip');
+                            $('[compare='+second+']').parent().removeClass('backFlip');
+                            return;
+
+                        }, 1000);
+                        //////////////////////////////////////////////////////////
+                    }
+                }, 1000);
+            }
+        }
+}

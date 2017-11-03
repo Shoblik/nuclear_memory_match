@@ -72,6 +72,10 @@ main > .row {
 background-color: rgba(34,139,34, .7);
 transition: 1s;
 }
+.card .compFoundCard {
+    background-color: rgba(255,0,0, .7);
+    transition: 1s;
+}
 main {
     transform: translate(10%);
     width: 58vw;
