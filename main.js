@@ -55,7 +55,7 @@ function reset() {
         }
 }
 function cardHandler() {
-    if (cardCount === 0) {
+    if (cardCount === 0 && playerOne === true) {
         //if it's the first card store that card and increase card count to 1
         firstCard = $(this);
         console.log(firstCard);
@@ -63,8 +63,6 @@ function cardHandler() {
         firstCard.addClass('backFlip');
         cardCount++;
 
-        //AI fuckery/////////////////////////////////////////
-        compMemory.push(first);
     }
     else if (cardCount === 1) {
         //if its the second card store that card and we'll perform a conditional check
@@ -108,7 +106,16 @@ function cardHandler() {
                 firstCard.removeClass('backFlip').css('transition', '1.0s');
                 secondCard.removeClass('backFlip').css('transition', '1.0s');
                 cardCount = 0;
+
+                /////////////AI implementation/////////////////////////////////////////////////////
+                compMemory.push(first,second);
+                playerOne = false;
+                var cardsNotFlipped = $('.card').not('.backFlip');
+                var randomCard = Math.floor((Math.random() * cardsNotFlipped.length));
+
+                $(cardsNotFlipped[randomCard]).addClass('backFlip');
             }, 1000);
+
 
         }
 
