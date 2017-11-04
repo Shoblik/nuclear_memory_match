@@ -23,13 +23,14 @@ var disqualCount;
 var playerOne = true;
 var compMemory = [];
 var pickAnotherCard = true;
+var chanceOfRemembering = 10;
 
 
 function reset() {
     playerOne = true;
     timesPlayed++;
     $('.card').removeClass('backFlip').css('transition', '1s');
-    $('.card').find('.front').removeClass('foundCard').css('transition', '2s');
+    $('.card').find('.front').removeClass('foundCard compFoundCard').css('transition', '2s');
     totalCards = 0;
     cardCount = 0;
     tryCount = 0;
@@ -46,21 +47,46 @@ function reset() {
     $('.tryCount').text(tryCount);
 
     /////////////////////////////////////////////////////////
+        var staticImgArray = [
+            'images/engineer.png',
+            'images/green_energy.png',
+            'images/microscope.png',
+            'images/miner2.png',
+            'images/nuclearExplosion.png',
+            'images/plutoniumAtom.png',
+            'images/radioactive.png',
+            'images/rocketsicon.png',
+            'images/powerPlant.png',
+            'images/engineer.png',
+            'images/green_energy.png',
+            'images/microscope.png',
+            'images/miner2.png',
+            'images/nuclearExplosion.png',
+            'images/plutoniumAtom.png',
+            'images/radioactive.png',
+            'images/rocketsicon.png',
+            'images/powerPlant.png'
+        ];
+        var imgArr = staticImgArray.slice();
         var staticCardArr = [1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9];
         var cardArr = staticCardArr.slice();
 
         var cards = $('.row').find('.card .front')
         for (var i=0;i<cards.length;i++) {
             var randomNum = Math.floor((Math.random() * cardArr.length));
-            $(cards[i]).text(cardArr[randomNum]).attr('compare', cardArr[randomNum]);
+            $(cards[i]).css({
+                'background-image': 'url('+imgArr[randomNum]+')',
+                'background-position': 'center',
+                'background-size': '140%'
+            }).attr('compare', cardArr[randomNum]);
             cardArr.splice(randomNum, 1);
+            imgArr.splice(randomNum, 1);
         }
 }
 function cardHandler() {
     if (cardCount === 0 && playerOne === true) {
         //if it's the first card store that card and increase card count to 1
         firstCard = $(this);
-        console.log(firstCard);
         first = firstCard.find('.front').attr('compare');
         firstCard.addClass('backFlip');
         cardCount++;
@@ -125,56 +151,68 @@ function compare() {
 
 ////////////////AI implementation//////////////////////////////////////////////////
 function cpu() {
-    setTimeout(function() {
-        pickAnotherCard = true;
-        //Store the cards it has seen into computer memory
-        compMemory.push(first,second);
-        //Pick a card randomly and flip it
-        var cardsNotFlipped = $('.card').not('.backFlip');
-        var randomCard = Math.floor((Math.random() * cardsNotFlipped.length));
-        var compCard = cardsNotFlipped[randomCard];
-        $(compCard).addClass('backFlip');
-        //look at the cards compare value, if it exists in the computers memory, find it
-        first = $(compCard).find('.front').attr('compare');
-
-        setTimeout(function() {
-        for (var i=0;i<compMemory.length-1;i++) {
-            if (compMemory[i] == first) {
-                $('[compare=' + first + ']').parent().addClass('backFlip');
-                $('[compare=' + first + ']').addClass('compFoundCard');
-                playerOne = true;
-                pickAnotherCard = false;
-                cpu();
-                break;
-                }
+    if (playerOne !== true) {
+        setTimeout(function () {
+            pickAnotherCard = true;
+            //Store the cards it has seen into computer memory
+            var compMemoryRandomNum = Math.floor((Math.random() * 10) + 1);
+            if (compMemoryRandomNum <= chanceOfRemembering) {
+                compMemory.push(first, second);
             }
+            //Pick a card randomly and flip it
+            var cardsNotFlipped = $('.card').not('.backFlip');
+            var randomCard = Math.floor((Math.random() * cardsNotFlipped.length));
+            var compCard = cardsNotFlipped[randomCard];
+            $(compCard).addClass('backFlip');
+            //look at the cards compare value, if it exists in the computers memory, find it
+            first = $(compCard).find('.front').attr('compare');
+            compMemory.push(first);
+
+            setTimeout(function () {
+                var seenCard = 0;
+                for (var i = 0; i < compMemory.length - 1; i++) {
+                    if (compMemory[i] == first) {
+                        seenCard++;
+                    }
+                    if (compMemory[i] == first && seenCard === 2) {
+
+                        $('[compare=' + first + ']').parent().addClass('backFlip');
+                        $('[compare=' + first + ']').addClass('compFoundCard');
+                        playerOne = false;
+                        pickAnotherCard = false;
+                        seenCard = 0;
+                        cpu();
+                        break;
+                    }
+                }
+            }, 1000);
+
+
+            setTimeout(function () {
+                cardsNotFlipped = $('.card').not('.backFlip');
+                randomCard = Math.floor((Math.random() * cardsNotFlipped.length));
+                if (pickAnotherCard === true) {
+                    $(cardsNotFlipped[randomCard]).addClass('backFlip');
+                    var second = $(cardsNotFlipped[randomCard]).find('.front').attr('compare');
+                    compMemory.push(second);
+                    if (first == second) {
+                        $('[compare=' + first + ']').addClass('compFoundCard');
+                        playerOne = false;
+                        cpu();
+
+                    }
+                    else {
+                        ///This one doesn't play nice
+                        setTimeout(function () {
+                            playerOne = true;
+                            $('[compare=' + first + ']').parent().removeClass('backFlip');
+                            $('[compare=' + second + ']').parent().removeClass('backFlip');
+
+
+                        }, 1000);
+                    }
+                }
+            }, 1000);
         }, 1000);
-
-
-                    setTimeout(function () {
-                        if (pickAnotherCard === true) {
-                            randomCard = Math.floor((Math.random() * cardsNotFlipped.length));
-                            cardsNotFlipped = $('.card').not('.backFlip');
-                            $(cardsNotFlipped[randomCard]).addClass('backFlip');
-                            var second = $(cardsNotFlipped[randomCard]).find('.front').attr('compare');
-                            if (first == second) {
-                                $('[compare=' + first + ']').addClass('compFoundCard');
-
-                            }
-                            else {
-                                ///This one doesn't play nice
-                                setTimeout(function () {
-                                    playerOne = true;
-                                    $('[compare=' + first + ']').parent().removeClass('backFlip');
-                                    $('[compare=' + second + ']').parent().removeClass('backFlip');
-
-
-                                }, 1000);
-                                //////////////////////////////////////////////////////////
-
-                            }
-                        }
-                    }, 1000);
-
-    }, 1000);
+    }
 }
