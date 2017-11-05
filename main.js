@@ -3,42 +3,29 @@ $(document).ready(function() {
     $('.card').on('click', cardHandler);
     $('body').on('click','.reset' ,reset);
     $('.settings').on('click', changeSettings);
-    flash();
+
     /////////////////////////////////////REMOVE BEFORE RELEASE//////////////////////////
     $('.accuracy').on('click', function() {
        $('.card').toggleClass('backFlip');
     });
     ///////////////////////////////////////////////////////////////////////////////////
-    // Get the modal
-    var modal = document.getElementById('myModal');
-
-// Get the button that opens the modal
-    var header = document.querySelector(".userPoints");
-
-// Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks on the button, open the modal
-    header.onclick = function() {
-        modal.style.display = "block";
-    }
-
-// When the user clicks on <span> (x), close the modal
-    span.onclick = function() {
-        modal.style.display = "none";
+//Close the modal when the X is clicked
+    $('.close').on('click', function() {
+        $('.modal').css('display', 'none');
         $(".modal-body").html("");
         $(".modal-footer").html("");
-    }
+    });
     $('body').on('click', '.reset' ,function() {
         $('.modal').css({
             'display': 'none',
             'transition': '1s'
         });
     })
-// When the user clicks anywhere outside of the modal, close it
+//Close the modal when the user click anywhere other than the modal
     window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
+        if (event.target == document.getElementById('myModal')) {
+            console.log()
+            $('.modal').css('display', 'none');
             $(".modal-body").html("");
             $(".modal-footer").html("");
         }
@@ -66,6 +53,9 @@ var chanceOfRemembering = 8;
 
 
 function reset() {
+    $('.modal').css('display', 'none');
+    $(".modal-body").html("");
+    $(".modal-footer").html("");
     playerOne = true;
     timesPlayed++;
     $('.card').removeClass('backFlip').css('transition', '1s');
@@ -137,16 +127,9 @@ function cardHandler() {
     }
     else if (cardCount === 1) {
         //if its the second card store that card and we'll perform a conditional check
-        $('.tryCount').text(totalCards);
         secondCard = $(this);
         if (secondCard.hasClass('backFlip')) {
-            cardCount = 0;
-            firstCard.removeClass('backFlip').css('transition', '1.0s');
-            disqualCount++;
-            if (disqualCount == 3) {
-                reset();
-                alert('you have been disqualified for cheating!!!');
-            }
+            cardCount = 1;
             return;
 
         }
@@ -154,6 +137,7 @@ function cardHandler() {
         secondCard.addClass('backFlip');
         totalCards++;
         cardCount++;
+        $('.tryCount').text(totalCards)
         compare();
     }
 
@@ -373,11 +357,11 @@ function changeSettings () {
     });
 }
 /////////////////////////////////////////////////
-function flash() {
-    setInterval(function () {
-        if (playerOne === true) {
-            $('.turn').toggleClass('flash').css('transition', '1s');
-        }
-        console.log('Im here every 1 second');
-    }, 1000);
-}
+// function flash() {
+//     setInterval(function () {
+//         if (playerOne === true) {
+//             $('.turn').toggleClass('flash').css('transition', '1s');
+//         }
+//         console.log('Im here every 1 second');
+//     }, 1000);
+// }
