@@ -21,6 +21,7 @@ header h1 {
     color: white;
     font-size: 3em;
     display: inline-block;
+    left: 5%;
 }
 .reset {
     position: relative;
@@ -85,14 +86,8 @@ transition: 1s;
     background-color: rgba(255,0,0, .7);
     transition: 1s;
 }
-main {
-    transform: translate(10%);
-    width: 58vw;
-    margin: 2% 15% 0 0;
-    float: right;
-}
-
 /*Card flip handlers/////////////////////////////////////////////////////////////*/
+
 .backFlip {
     transform: rotateY(180deg);
     transition: 1s;
@@ -150,7 +145,7 @@ img {
 }
 .rightBar {
     display: inline-block;
-    width: 15%;
+    width: 12%;
     height: 85vh;
     background-color: rgba(0,0,0, .7);
     border: 2px solid white;

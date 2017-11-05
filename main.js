@@ -49,7 +49,7 @@ function reset() {
     /////////////////////////////////////////////////////////
         var staticImgArray = [
             'images/engineer.png',
-            'images/green_energy.png',
+            'images/nuclearFusion.png',
             'images/microscope.png',
             'images/miner2.png',
             'images/nuclearExplosion.png',
@@ -58,7 +58,7 @@ function reset() {
             'images/rocketsicon.png',
             'images/powerPlant.png',
             'images/engineer.png',
-            'images/green_energy.png',
+            'images/nuclearFusion.png',
             'images/microscope.png',
             'images/miner2.png',
             'images/nuclearExplosion.png',
