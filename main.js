@@ -11,7 +11,7 @@ $(document).ready(function() {
 });
 var totalCards = 0;
 var cardCount = 0;
-var timesPlayed = 0;
+var timesPlayed = -1;
 var tryCount = 0;
 var accuracy = 0;
 var matchCount = 0;
@@ -144,6 +144,10 @@ function compare() {
                 $('.accuracy').text(accuracy.toFixed(1) + '%');
             }
             playerOne = false;
+            $('.turn').text('CPU\'s Turn').css({
+                'color': 'red',
+                'transition': '1s',
+            });
             cpu();
         }, 1000);
     }
@@ -166,7 +170,6 @@ function cpu() {
             $(compCard).addClass('backFlip');
             //look at the cards compare value, if it exists in the computers memory, find it
             first = $(compCard).find('.front').attr('compare');
-            compMemory.push(first);
 
             setTimeout(function () {
                 var seenCard = 0;
@@ -184,6 +187,7 @@ function cpu() {
                         cpu();
                         break;
                     }
+                    playerOne = true;
                 }
             }, 1000);
 
@@ -194,7 +198,10 @@ function cpu() {
                 if (pickAnotherCard === true) {
                     $(cardsNotFlipped[randomCard]).addClass('backFlip');
                     var second = $(cardsNotFlipped[randomCard]).find('.front').attr('compare');
-                    compMemory.push(second);
+                    if (compMemoryRandomNum <= chanceOfRemembering) {
+                        compMemory.push(first);
+                        compMemory.push(second);
+                    }
                     if (first == second) {
                         $('[compare=' + first + ']').addClass('compFoundCard');
                         playerOne = false;
@@ -202,12 +209,15 @@ function cpu() {
 
                     }
                     else {
-                        ///This one doesn't play nice
+
                         setTimeout(function () {
                             playerOne = true;
                             $('[compare=' + first + ']').parent().removeClass('backFlip');
                             $('[compare=' + second + ']').parent().removeClass('backFlip');
-
+                            $('.turn').text('Your Turn!').css({
+                                'color': 'green',
+                                'transition': '2s',
+                            })
 
                         }, 1000);
                     }

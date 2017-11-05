@@ -32,7 +32,14 @@ header h1 {
     background-color: red;
     border: none;
 }
-
+header h2 {
+    position: absolute;
+    display: inline-block;
+    top: 3vh;
+    right: 85%;
+    color: green;
+    font-size: 2rem;
+}
 
 /*Main content area/////////////////////////////////////////////////////////////*/
 main > .row {
