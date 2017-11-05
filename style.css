@@ -21,18 +21,34 @@ header h1 {
     color: white;
     font-size: 3em;
     display: inline-block;
-    left: 2%;
+    left: 4%;
 
 }
 header h2 {
     position: absolute;
     display: inline-block;
-    top: 3vh;
-    right: 85%;
+    top: 2vh;
+    right: 87%;
     color: green;
     font-size: 2rem;
 }
+header .userPoints {
+    display: inline-block;
+    color: white;
+    right: 34%;
+    top: 3vh;
+    position: relative;
+    font-size: 3em;
+}
+header .compPoints {
+    display: inline-block;
+    color: red;
+    top: 3vh;
+    position: relative;
+    left: 12%;
+    font-size: 3em;
 
+}
 /*Main content area/////////////////////////////////////////////////////////////*/
 .row {
     text-align: center;

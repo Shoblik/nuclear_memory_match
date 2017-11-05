@@ -27,7 +27,7 @@ var playerOne = true;
 var compMemory = [];
 var pickAnotherCard = true;
 var chanceOfRemembering = 10;
-var moves = 0;
+
 
 
 function reset() {
@@ -46,6 +46,10 @@ function reset() {
     firstCard;
     secondCard;
     compMemory = [];
+    compMatchCount = 0;
+    compTotalCards = 0;
+    compAccuracy = 0;
+    $('.userPoints, .compPoints').text('0');
     $('.timesPlayed').text(timesPlayed);
     $('.accuracy').text(accuracy.toFixed(1) + '%');
     $('.tryCount').text(tryCount);
@@ -134,11 +138,15 @@ function compare() {
         accuracy = (matchCount / totalCards) * 100;
         $('.accuracy').text(accuracy.toFixed(1) + '%');
 
-        if (first === second && matchCount === 9) {
-            console.log('YOU WIN');
+        if (first === second && compMatchCount+matchCount === 9) {
+            ////////////////////////////////End of Game user last turn////////////////////////////////////////////////
             timesPlayed++;
             $('.timesPlayed').text(timesPlayed);
+            playerOne = true;
         }
+        setTimeout(function() {
+            $('.userPoints').text(matchCount);
+        }, 1000);
     }
     else {
         //If the cards don't match flip them back over and set cardCount to 0
@@ -164,7 +172,6 @@ function compare() {
 ////////////////AI implementation//////////////////////////////////////////////////
 function cpu() {
     if (playerOne !== true) {
-
 
         setTimeout(function () {
             pickAnotherCard = true;
@@ -195,9 +202,12 @@ function cpu() {
                         compTotalCards++;
                         compAccuracy = (compMatchCount / compTotalCards) * 100;
                         $('.compAccuracy').text(compAccuracy.toFixed(1)+'%');
+
+                        $('.compPoints').text(compMatchCount);
                         playerOne = true;
                         pickAnotherCard = false;
                         seenCard = 0;
+
 
                     }
                     else if (compMemory[i] == first && seenCard === 2 && compMatchCount+matchCount !== 8) {
@@ -207,6 +217,9 @@ function cpu() {
                         compTotalCards++;
                         compAccuracy = (compMatchCount / compTotalCards) * 100;
                         $('.compAccuracy').text(compAccuracy.toFixed(1)+'%');
+                        setTimeout(function() {
+                            $('.compPoints').text(compMatchCount);
+                        }, 1000);
                         playerOne = false;
                         pickAnotherCard = false;
                         seenCard = 0;
@@ -234,6 +247,9 @@ function cpu() {
                         compTotalCards++;
                         compAccuracy = (compMatchCount / compTotalCards) * 100;
                         $('.compAccuracy').text(compAccuracy.toFixed(1)+'%');
+                        setTimeout(function() {
+                            $('.compPoints').text(compMatchCount);
+                        }, 1000);
                         playerOne = false;
                         cpu();
 
