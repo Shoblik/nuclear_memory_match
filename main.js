@@ -15,6 +15,9 @@ var timesPlayed = -1;
 var tryCount = 0;
 var accuracy = 0;
 var matchCount = 0;
+var compTotalCards = 0;
+var compMatchCount = 0;
+var compAccuracy = 0;
 var first;
 var second;
 var firstCard;
@@ -24,6 +27,7 @@ var playerOne = true;
 var compMemory = [];
 var pickAnotherCard = true;
 var chanceOfRemembering = 10;
+var moves = 0;
 
 
 function reset() {
@@ -117,6 +121,7 @@ function cardHandler() {
 }
 
 function compare() {
+
     if (first === second) {
         //if the cards match things match here and card count get's reset to 0
         setTimeout(function() {
@@ -159,6 +164,8 @@ function compare() {
 ////////////////AI implementation//////////////////////////////////////////////////
 function cpu() {
     if (playerOne !== true) {
+
+
         setTimeout(function () {
             pickAnotherCard = true;
             //Store the cards it has seen into computer memory
@@ -180,10 +187,26 @@ function cpu() {
                     if (compMemory[i] == first) {
                         seenCard++;
                     }
-                    if (compMemory[i] == first && seenCard === 2) {
-
+                    //////////////End the game if the comp finds the last card
+                    if (compMemory[i] == first && seenCard === 2 && compMatchCount+matchCount === 8) {
                         $('[compare=' + first + ']').parent().addClass('backFlip');
                         $('[compare=' + first + ']').addClass('compFoundCard');
+                        compMatchCount++;
+                        compTotalCards++;
+                        compAccuracy = (compMatchCount / compTotalCards) * 100;
+                        $('.compAccuracy').text(compAccuracy.toFixed(1)+'%');
+                        playerOne = true;
+                        pickAnotherCard = false;
+                        seenCard = 0;
+
+                    }
+                    else if (compMemory[i] == first && seenCard === 2 && compMatchCount+matchCount !== 8) {
+                        $('[compare=' + first + ']').parent().addClass('backFlip');
+                        $('[compare=' + first + ']').addClass('compFoundCard');
+                        compMatchCount++;
+                        compTotalCards++;
+                        compAccuracy = (compMatchCount / compTotalCards) * 100;
+                        $('.compAccuracy').text(compAccuracy.toFixed(1)+'%');
                         playerOne = false;
                         pickAnotherCard = false;
                         seenCard = 0;
@@ -207,6 +230,10 @@ function cpu() {
                     }
                     if (first == second) {
                         $('[compare=' + first + ']').addClass('compFoundCard');
+                        compMatchCount++;
+                        compTotalCards++;
+                        compAccuracy = (compMatchCount / compTotalCards) * 100;
+                        $('.compAccuracy').text(compAccuracy.toFixed(1)+'%');
                         playerOne = false;
                         cpu();
 
@@ -220,7 +247,10 @@ function cpu() {
                             $('.turn').text('Your Turn!').css({
                                 'color': 'green',
                                 'transition': '2s',
-                            })
+                            });
+                            compTotalCards++;
+                            compAccuracy = (compMatchCount / compTotalCards) * 100;
+                            $('.compAccuracy').text(compAccuracy.toFixed(1)+'%');
 
                         }, 1000);
                     }
