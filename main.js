@@ -126,6 +126,9 @@ function compare() {
             cardCount = 0;
         }, 500);
         matchCount++;
+        accuracy = (matchCount / totalCards) * 100;
+        $('.accuracy').text(accuracy.toFixed(1) + '%');
+
         if (first === second && matchCount === 9) {
             console.log('YOU WIN');
             timesPlayed++;

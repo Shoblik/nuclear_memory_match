@@ -21,17 +21,8 @@ header h1 {
     color: white;
     font-size: 3em;
     display: inline-block;
-    left: 5%;
-}
-.reset {
-    position: relative;
-    left: 23%;
-    top: 3vh;
-    width: 100px;
-    height: 50px;
-    color: white;
-    background-color: red;
-    border: none;
+    left: 2%;
+
 }
 header h2 {
     position: absolute;
@@ -158,5 +149,27 @@ img {
     color: red;
 }
 .rightBar .wrapper .compAccuracy {
-    margin: 5% 0 0 0;
+    margin: 5% 0 0% 0;
+
+}
+.reset {
+    position: relative;
+    top: 18vh;
+    width: 100px;
+    height: 50px;
+    color: white;
+    background-color: red;
+    border: none;
+}
+.rightBar .wrapper .settings {
+    position: relative;
+    top: 20vh;
+    color: white;
+    font-size: 1.3rem;
+    text-decoration: underline;
+}
+.rightBar .wrapper .info {
+    top: 18vh;
+    position: relative;
+    color: white;
 }
