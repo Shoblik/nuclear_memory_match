@@ -42,10 +42,12 @@ header h2 {
 }
 
 /*Main content area/////////////////////////////////////////////////////////////*/
-main > .row {
+.row {
     text-align: center;
     position: relative;
-    top: -50%;
+    width: 64%;
+    left: 20%;
+    bottom: 80%;
 }
 .row .card {
     display: inline-block;
@@ -103,35 +105,35 @@ main {
     text-decoration: underline;
 }
 
-.leftBar .wrapper h4 {
+.leftBar .wrapper h4, .rightBar .wrapper h4 {
     font-size: 165%;
     text-align: left;
     margin: 5% 0 0 3%;
 
 }
-.leftBar .wrapper h3 {
+.leftBar .wrapper h3, .rightBar .wrapper h3 {
     font-size: 220%;
     text-align: left;
     margin-left: 5%;
 }
-.leftBar .wrapper {
+.leftBar .wrapper, .rightBar .wrapper {
     position: relative;
     display: inline-block;
     margin: 0;
     height: 81.5vh;
     width: 100%;
-    color: white;
+    color: lightgreen;
 }
 .leftBar {
     display: inline-block;
-    width: 20%;
+    width: 15%;
     height: 85vh;
     background-color: rgba(0,0,0, .7);
     border: 2px solid white;
     border-top: none;
     border-bottom: none;
 }
-.tryCount, .timesPlayed, .accuracy {
+.tryCount, .timesPlayed, .accuracy, .compAccuracy {
     height: 50px;
     font-size: 3rem;
     margin-left: 20%;
@@ -141,4 +143,25 @@ img {
     position: relative;
     top: 50%;
     transform: translate(0,-50%);
+}
+/*////////////////////////////////////////////////////////////////////////////////////*/
+.rightBar .wrapper h3, .rightBar .wrapper h4 {
+    text-align: center;
+}
+.rightBar {
+    display: inline-block;
+    width: 15%;
+    height: 85vh;
+    background-color: rgba(0,0,0, .7);
+    border: 2px solid white;
+    border-top: none;
+    border-bottom: none;
+    float: right;
+    text-align: center;
+}
+.rightBar .wrapper {
+    color: red;
+}
+.rightBar .wrapper .compAccuracy {
+    margin: 5% 0 0 0;
 }
