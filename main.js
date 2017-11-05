@@ -1,13 +1,48 @@
 $(document).ready(function() {
     reset();
     $('.card').on('click', cardHandler);
-    $('.reset').on('click', reset);
-
+    $('body').on('click','.reset' ,reset);
+    $('.settings').on('click', changeSettings);
+    flash();
     /////////////////////////////////////REMOVE BEFORE RELEASE//////////////////////////
     $('.accuracy').on('click', function() {
        $('.card').toggleClass('backFlip');
     });
     ///////////////////////////////////////////////////////////////////////////////////
+    // Get the modal
+    var modal = document.getElementById('myModal');
+
+// Get the button that opens the modal
+    var header = document.querySelector(".userPoints");
+
+// Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on the button, open the modal
+    header.onclick = function() {
+        modal.style.display = "block";
+    }
+
+// When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+        $(".modal-body").html("");
+        $(".modal-footer").html("");
+    }
+    $('body').on('click', '.reset' ,function() {
+        $('.modal').css({
+            'display': 'none',
+            'transition': '1s'
+        });
+    })
+// When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+            $(".modal-body").html("");
+            $(".modal-footer").html("");
+        }
+    }
 });
 var totalCards = 0;
 var cardCount = 0;
@@ -26,7 +61,7 @@ var disqualCount;
 var playerOne = true;
 var compMemory = [];
 var pickAnotherCard = true;
-var chanceOfRemembering = 10;
+var chanceOfRemembering = 8;
 
 
 
@@ -51,7 +86,7 @@ function reset() {
     compAccuracy = 0;
     $('.userPoints, .compPoints').text('0');
     $('.timesPlayed').text(timesPlayed);
-    $('.accuracy').text(accuracy.toFixed(1) + '%');
+    $('.accuracy, .compAccuracy').text(accuracy.toFixed(1) + '%');
     $('.tryCount').text(tryCount);
 
     /////////////////////////////////////////////////////////
@@ -143,6 +178,7 @@ function compare() {
             timesPlayed++;
             $('.timesPlayed').text(timesPlayed);
             playerOne = true;
+            whoWon();
         }
         setTimeout(function() {
             $('.userPoints').text(matchCount);
@@ -207,7 +243,8 @@ function cpu() {
                         playerOne = true;
                         pickAnotherCard = false;
                         seenCard = 0;
-
+                        whoWon();
+                        return;
 
                     }
                     else if (compMemory[i] == first && seenCard === 2 && compMatchCount+matchCount !== 8) {
@@ -261,8 +298,8 @@ function cpu() {
                             $('[compare=' + first + ']').parent().removeClass('backFlip');
                             $('[compare=' + second + ']').parent().removeClass('backFlip');
                             $('.turn').text('Your Turn!').css({
-                                'color': 'green',
-                                'transition': '2s',
+                                'color': 'white',
+                                'transition': '1s',
                             });
                             compTotalCards++;
                             compAccuracy = (compMatchCount / compTotalCards) * 100;
@@ -274,4 +311,73 @@ function cpu() {
             }, 1000);
         }, 1000);
     }
+
+}
+function whoWon() {
+    if (matchCount > compMatchCount) {
+        //user wins
+        var h1 = $('<h1>').text('You Win!');
+        var content = $('<h2>').text('You have gathered more nuclear resources than your opponent. Nuclear domination is assured')
+        $('.modal-body').append(h1,content);
+
+    }
+    if (matchCount < compMatchCount) {
+        //comp wins
+        var h1 = $('<h1>').text('You Lose.');
+        var content = $('<h2>').text('Your opponent has gathered more nuclear resources and will have a larger arsenal than you.')
+        $('.modal-body').append(h1,content);
+
+    }
+    else if (matchCount === compMatchCount) {
+        //tie
+        var h1 = $('<h1>').text('Tie');
+        var content = $('<h2>').text('New nuclear resources have been discovered try again to break the stalemate')
+        $('.modal-body').append(h1,content);
+
+    }
+    var resetBtn = $('<button>').addClass('reset').text('Play Again');
+    $('.modal-footer').append(resetBtn);
+
+    $('.modal').css('display', 'block');
+}
+///////////////////////////////////Settings////////////////////////////////////////////////////
+
+function changeSettings () {
+    var h1 = $('<h1>').text('Settings').css({'text-decoration': 'underline'})
+    var h2 = $('<h2>').text('CPU difficulty').css('text-align', 'center');
+    var btnDiv = $('<div>').addClass('buttonWrapper');
+    var easyBtn = $('<button>').addClass('difficultyBtn easy').text('Easy');
+    var mediumBtn = $('<button>').addClass('difficultyBtn medium').text('Medium');
+    var hardBtn = $('<button>').addClass('difficultyBtn hard').text('Hard')
+    $(btnDiv).append(easyBtn,mediumBtn,hardBtn);
+    $('.modal-body').append(h1,h2,btnDiv);
+    $('.modal').css('display', 'block');
+
+    $('body').on('click','.easy', function() {
+        chanceOfRemembering = 6;
+        $('.difficulty').text('Easy');
+        $('.modal').css('display', 'none');
+        $(".modal-body").html("");
+    });
+    $('body').on('click','.medium', function() {
+        chanceOfRemembering = 8;
+        $('.difficulty').text('Medium');
+        $('.modal').css('display', 'none');
+        $(".modal-body").html("");
+    });
+    $('body').on('click','.hard', function() {
+        chanceOfRemembering = 10;
+        $('.difficulty').text('Hard');
+        $('.modal').css('display', 'none');
+        $(".modal-body").html("");
+    });
+}
+/////////////////////////////////////////////////
+function flash() {
+    setInterval(function () {
+        if (playerOne === true) {
+            $('.turn').toggleClass('flash').css('transition', '1s');
+        }
+        console.log('Im here every 1 second');
+    }, 1000);
 }
