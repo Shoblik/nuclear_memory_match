@@ -202,7 +202,11 @@ function cpu() {
                 compMemory.push(first, second);
             }
             //Pick a card randomly and flip it
-            var cardsNotFlipped = $('.card').not('.backFlip');
+            var cardsNotFlipped = $('.card').not('.backFlip, .seen');
+            if(cardsNotFlipped.length === 0) {
+                $('.card').removeClass('seen');
+                cardsNotFlipped = $('.card').not('.backFlip, .seen');
+            }
             var randomCard = Math.floor((Math.random() * cardsNotFlipped.length));
             var compCard = cardsNotFlipped[randomCard];
             $(compCard).addClass('backFlip');
@@ -280,8 +284,8 @@ function cpu() {
 
                         setTimeout(function () {
                             playerOne = true;
-                            $('[compare=' + first + ']').parent().removeClass('backFlip');
-                            $('[compare=' + second + ']').parent().removeClass('backFlip');
+                            $('[compare=' + first + ']').parent().removeClass('backFlip').addClass('seen');
+                            $('[compare=' + second + ']').parent().removeClass('backFlip').addClass('seen');
                             $('.turn').text('Your Turn!').css({
                                 'color': 'lightGreen',
                                 'transition': '1s',
