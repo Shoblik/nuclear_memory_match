@@ -28,7 +28,7 @@ header h2 {
     display: inline-block;
     top: 2vh;
     right: 87%;
-    color: white;
+    color: lightGreen;
     font-size: 2rem;
 }
 header .userPoints {
@@ -65,6 +65,7 @@ header .compPoints {
     position: relative;
     vertical-align: top;
     -webkit-transform-style: preserve-3d;
+    cursor: pointer;
 }
 .card .back {
     background-color: rgba(0,0,0,.7);
@@ -184,6 +185,7 @@ img {
     color: white;
     background-color: red;
     border: none;
+    cursor: pointer;
 }
 .rightBar .wrapper .settings {
     position: relative;
@@ -191,11 +193,13 @@ img {
     color: white;
     font-size: 1.3rem;
     text-decoration: underline;
+    cursor: pointer;
 }
 .rightBar .wrapper .info {
     position: relative;
     color: white;
     top: 2vh;
+    cursor: pointer;
 }
 .rightBar .wrapper .difficulty {
     font-size: 2em;
@@ -225,7 +229,7 @@ img {
     margin: 15% auto; /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
-    width: 48%; /* Could be more or less, depending on screen size */
+    width: 28%; /* Could be more or less, depending on screen size */
 }
 .modal-body h1 {
     text-align: center;

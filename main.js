@@ -1,4 +1,5 @@
 $(document).ready(function() {
+
     reset();
     $('.card').on('click', cardHandler);
     $('body').on('click','.reset' ,reset);
@@ -23,7 +24,7 @@ $(document).ready(function() {
     })
 //Close the modal when the user click anywhere other than the modal
     window.onclick = function(event) {
-        if (event.target == document.getElementById('myModal')) {
+        if (event.target == document.querySelector('.modal')) {
             console.log()
             $('.modal').css('display', 'none');
             $(".modal-body").html("");
@@ -282,7 +283,7 @@ function cpu() {
                             $('[compare=' + first + ']').parent().removeClass('backFlip');
                             $('[compare=' + second + ']').parent().removeClass('backFlip');
                             $('.turn').text('Your Turn!').css({
-                                'color': 'white',
+                                'color': 'lightGreen',
                                 'transition': '1s',
                             });
                             compTotalCards++;
