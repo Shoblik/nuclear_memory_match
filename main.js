@@ -146,7 +146,7 @@ function reset() {
     //
 
     /////////////////////////////////////////////////////////
-        var staticImgArray = [
+        const staticImgArray = [
             'images/engineer.png',
             'images/nuclearFusion.png',
             'images/microscope.png',
@@ -170,14 +170,15 @@ function reset() {
         var staticCardArr = [1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9];
         var cardArr = staticCardArr.slice();
 
-        var cards = $('.row').find('.card .front')
+        // var cards = $('.row').find('.card .front');
+        var cards = document.querySelectorAll('.front');
+
         for (var i=0;i<cards.length;i++) {
             var randomNum = Math.floor((Math.random() * cardArr.length));
-            $(cards[i]).css({
-                'background-image': 'url('+imgArr[randomNum]+')',
-                'background-position': 'center',
-                'background-size': '140%'
-            }).attr('compare', cardArr[randomNum]);
+            cards[i].style.backgroundImage = 'url('+imgArr[randomNum]+')';
+            cards[i].style.backgroundPosition = 'center';
+            cards[i].style.backgroundSize = '140%';
+            cards[i].setAttribute('compare', cardArr[randomNum] + '');
             cardArr.splice(randomNum, 1);
             imgArr.splice(randomNum, 1);
         }
