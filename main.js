@@ -106,7 +106,6 @@ function reset() {
     console.log(cardArray[0].childNodes);
     for (let i = 0; i < cardArray.length; i++) {
         cardArray[i].style.transition = '1s';
-        console.log(cardArray[i].classList);
         cardArray[i].childNodes[1].classList.remove('foundCard', 'compFoundCard');
         cardArray[i].classList.remove('backFlip', 'seen');
         cardArray[i].style.transition = '1s';
@@ -183,28 +182,37 @@ function reset() {
             imgArr.splice(randomNum, 1);
         }
 }
-function cardHandler() {
+function cardHandler(event) {
     if (cardCount === 0 && playerOne === true) {
         //if it's the first card store that card and increase card count to 1
-        firstCard = $(this);
-        first = firstCard.find('.front').attr('compare');
-        firstCard.addClass('backFlip');
+        // firstCard = $(this);
+        firstCard = event.path[1];
+        // console.log('first card', firstCard);
+        // first = firstCard.find('.front').attr('compare');
+        first = firstCard.childNodes[1].getAttribute('compare');
+        console.log('first ', first);
+        // firstCard.addClass('backFlip');
+        firstCard.classList.add('backFlip');
         cardCount++;
 
     }
     else if (cardCount === 1) {
         //if its the second card store that card and we'll perform a conditional check
-        secondCard = $(this);
-        if (secondCard.hasClass('backFlip')) {
+        // secondCard = $(this);
+        secondCard = event.path[1];
+        if (secondCard.classList.contains('backFlip')) {
             cardCount = 1;
             return;
-
         }
-        second = secondCard.find('.front').attr('compare');
-        secondCard.addClass('backFlip');
+        second = secondCard.childNodes[1].getAttribute('compare');
+        console.log(second);
+        // secondCard.addClass('backFlip');
+        secondCard.classList.add('backFlip');
+
         totalCards++;
         cardCount++;
-        $('.tryCount').text(totalCards)
+        // $('.tryCount').text(totalCards);
+        document.querySelector('.tryCount').innerHTML = totalCards + '';
         compare();
     }
 
