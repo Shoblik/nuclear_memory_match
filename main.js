@@ -3,40 +3,63 @@ $(document).ready(function() {
     reset();
     // $('.card').on('click', cardHandler);
     //
-// .addEventListener('click', cardHandler);
     const card = document.getElementsByClassName("card");
     //attach click handlers
     for (let i = 0; i < card.length; i++) {
         card[i].addEventListener('click', cardHandler);
     }
     //
-    $('body').on('click','.reset' ,reset);
-    $('.settings').on('click', changeSettings);
+    // $('body').on('click','.reset' ,reset);
+    //
+    document.getElementsByClassName("reset")[0].addEventListener('click', reset);
+    //
+    // $('.settings').on('click', changeSettings);
+    //
+    document.getElementsByClassName("settings")[0].addEventListener('click', changeSettings);
+    //
 
     /////////////////////////////////////REMOVE BEFORE RELEASE//////////////////////////
     $('.accuracy').on('click', function() {
        $('.card').toggleClass('backFlip');
     });
     ///////////////////////////////////////////////////////////////////////////////////
+
 //Close the modal when the X is clicked
-    $('.close').on('click', function() {
-        $('.modal').css('display', 'none');
-        $(".modal-body").html("");
-        $(".modal-footer").html("");
+//     $('.close').on('click', function() {
+//         $('.modal').css('display', 'none');
+//         $(".modal-body").html("");
+//         $(".modal-footer").html("");
+//     });
+    //
+    document.getElementsByClassName("close")[0].addEventListener('click', function() {
+        document.getElementsByClassName("modal")[0].style.display = 'none';
+        document.getElementsByClassName("modal-body")[0].innerHTML = '';
+        document.getElementsByClassName("modal-footer")[0].innerHTML = '';
     });
-    $('body').on('click', '.reset' ,function() {
-        $('.modal').css({
-            'display': 'none',
-            'transition': '1s'
-        });
-    })
+    //
+    // $('body').on('click', '.reset' ,function() {
+    //     $('.modal').css({
+    //         'display': 'none',
+    //         'transition': '1s'
+    //     });
+    // });
+    document.getElementsByClassName("reset")[0].addEventListener('click', function() {
+        const modal = document.getElementsByClassName("modal")[0];
+        modal.style.display = 'none';
+        modal.style.transition = '1s';
+
+    });
 //Close the modal when the user click anywhere other than the modal
     window.onclick = function(event) {
         if (event.target == document.querySelector('.modal')) {
-            console.log()
-            $('.modal').css('display', 'none');
-            $(".modal-body").html("");
-            $(".modal-footer").html("");
+            // $('.modal').css('display', 'none');
+            // $(".modal-body").html("");
+            // $(".modal-footer").html("");
+            //
+            document.getElementsByClassName('modal')[0].style.display = 'none';
+            document.getElementsByClassName('modal-body')[0].innerHTML = '';
+            document.getElementsByClassName('modal-footer')[0].innerHTML = '';
+            //
         }
     }
 });
@@ -62,13 +85,33 @@ var chanceOfRemembering = 8;
 
 
 function reset() {
-    $('.modal').css('display', 'none');
-    $(".modal-body").html("");
-    $(".modal-footer").html("");
+    // $('.modal').css('display', 'none');
+    //
+    document.querySelector('.modal').style.display = 'none';
+    //
+    // $(".modal-body").html("");
+    //
+    document.querySelector('.modal-body').innerHTML = '';
+    //
+    // $(".modal-footer").html("");
+    //
+    document.querySelector('.modal-footer').innerHTML = '';
+    //
     playerOne = true;
     timesPlayed++;
-    $('.card').removeClass('backFlip').css('transition', '1s');
-    $('.card').find('.front').removeClass('foundCard compFoundCard').css('transition', '2s');
+    // $('.card').removeClass('backFlip').css('transition', '1s');
+    //
+    // document.querySelector('.card').classList.remove('backFlip');
+    let cardArray = document.querySelectorAll('.card');
+    console.log(cardArray[0].childNodes);
+    for (let i = 0; i < cardArray.length; i++) {
+        cardArray[i].style.transition = '1s';
+        console.log(cardArray[i].classList);
+        cardArray[i].childNodes[1].classList.remove('foundCard', 'compFoundCard');
+        cardArray[i].classList.remove('backFlip', 'seen');
+        cardArray[i].style.transition = '1s';
+    }
+
     totalCards = 0;
     cardCount = 0;
     tryCount = 0;
@@ -83,10 +126,24 @@ function reset() {
     compMatchCount = 0;
     compTotalCards = 0;
     compAccuracy = 0;
-    $('.userPoints, .compPoints').text('0');
-    $('.timesPlayed').text(timesPlayed);
-    $('.accuracy, .compAccuracy').text(accuracy.toFixed(1) + '%');
-    $('.tryCount').text(tryCount);
+    // $('.userPoints, .compPoints').text('0');
+    //
+    document.querySelector('.userPoints').innerHTML = '0';
+    document.querySelector('.compPoints').innerHTML = '0';
+    //
+    // $('.timesPlayed').text(timesPlayed);
+    //
+    document.querySelector('.timesPlayed').innerHTML = '' + timesPlayed;
+    //
+    // $('.accuracy, .compAccuracy').text(accuracy.toFixed(1) + '%');
+    //
+    document.querySelector('.accuracy').innerHTML = accuracy.toFixed(1) + '%';
+    document.querySelector('.compAccuracy').innerHTML = accuracy.toFixed(1) + '%';
+    //
+    // $('.tryCount').text(tryCount);
+    //
+    document.querySelector('.tryCount').innerHTML = tryCount + '';
+    //
 
     /////////////////////////////////////////////////////////
         var staticImgArray = [
