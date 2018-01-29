@@ -103,7 +103,6 @@ function reset() {
     //
     // document.querySelector('.card').classList.remove('backFlip');
     let cardArray = document.querySelectorAll('.card');
-    console.log(cardArray[0].childNodes);
     for (let i = 0; i < cardArray.length; i++) {
         cardArray[i].style.transition = '1s';
         cardArray[i].childNodes[1].classList.remove('foundCard', 'compFoundCard');
@@ -185,33 +184,29 @@ function reset() {
 function cardHandler(event) {
     if (cardCount === 0 && playerOne === true) {
         //if it's the first card store that card and increase card count to 1
-        // firstCard = $(this);
-        firstCard = event.path[1];
-        // console.log('first card', firstCard);
-        // first = firstCard.find('.front').attr('compare');
-        first = firstCard.childNodes[1].getAttribute('compare');
-        console.log('first ', first);
-        // firstCard.addClass('backFlip');
-        firstCard.classList.add('backFlip');
-        cardCount++;
 
+        firstCard = event.target;
+        first = firstCard.parentNode.firstElementChild.getAttribute('compare');
+        console.log('first ', first);
+        console.log(firstCard.parentNode.firstElementChild);
+        // console.log(firstCard.parentNode.firstElementChild);
+        firstCard.parentNode.classList.add('backFlip');
+        cardCount++;
     }
     else if (cardCount === 1) {
         //if its the second card store that card and we'll perform a conditional check
         // secondCard = $(this);
-        secondCard = event.path[1];
-        if (secondCard.classList.contains('backFlip')) {
+        secondCard = event.target;
+        second = secondCard.parentNode.firstElementChild.getAttribute('compare');
+        if (secondCard.parentNode.firstElementChild.classList.contains('backFlip')) {
             cardCount = 1;
             return;
         }
-        second = secondCard.childNodes[1].getAttribute('compare');
-        console.log(second);
-        // secondCard.addClass('backFlip');
-        secondCard.classList.add('backFlip');
-
+        console.log('second ', second);
+        console.log(secondCard.parentNode.firstElementChild);
+        secondCard.parentNode.classList.add('backFlip');
         totalCards++;
         cardCount++;
-        // $('.tryCount').text(totalCards);
         document.querySelector('.tryCount').innerHTML = totalCards + '';
         compare();
     }
@@ -219,28 +214,36 @@ function cardHandler(event) {
 }
 
 function compare() {
-
     if (first === second) {
         //if the cards match things match here and card count get's reset to 0
         setTimeout(function() {
-            firstCard.find('.front').addClass('foundCard');
-            secondCard.find('.front').addClass('foundCard');
+            // firstCard.find('.front').addClass('foundCard');
+            // secondCard.find('.front').addClass('foundCard');
+            firstCard.parentNode.firstElementChild.classList.add('foundCard');
+            secondCard.parentNode.firstElementChild.classList.add('foundCard');
             console.log('matched!!!!!!!!!');
             cardCount = 0;
         }, 500);
         matchCount++;
         accuracy = (matchCount / totalCards) * 100;
-        $('.accuracy').text(accuracy.toFixed(1) + '%');
+        // $('.accuracy').text(accuracy.toFixed(1) + '%');
+        //
+        document.querySelector('.accuracy').innerHTML = accuracy.toFixed(1) + '%';
+        //
 
         if (first === second && compMatchCount+matchCount === 9) {
             ////////////////////////////////End of Game user last turn////////////////////////////////////////////////
             timesPlayed++;
-            $('.timesPlayed').text(timesPlayed);
+            // $('.timesPlayed').text(timesPlayed);
+            //
+            document.querySelector('.timesPlayed').innerHTML = timesPlayed + '';
+            //
             playerOne = true;
             whoWon();
         }
         setTimeout(function() {
-            $('.userPoints').text(matchCount);
+            // $('.userPoints').text(matchCount);
+            document.querySelector('.userPoints').innerHTML = matchCount + '';
         }, 1000);
     }
     else {
