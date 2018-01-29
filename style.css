@@ -5,6 +5,7 @@ body, html {
     height: 100%;
     background-image: url('http://cdn.ebaumsworld.com/mediaFiles/picture/2093252/83711051.jpg');
     background-position: center;
+    overflow: hidden;
 }
 header {
     width: 100%;

@@ -1,7 +1,15 @@
 $(document).ready(function() {
 
     reset();
-    $('.card').on('click', cardHandler);
+    // $('.card').on('click', cardHandler);
+    //
+// .addEventListener('click', cardHandler);
+    const card = document.getElementsByClassName("card");
+    //attach click handlers
+    for (let i = 0; i < card.length; i++) {
+        card[i].addEventListener('click', cardHandler);
+    }
+    //
     $('body').on('click','.reset' ,reset);
     $('.settings').on('click', changeSettings);
 
