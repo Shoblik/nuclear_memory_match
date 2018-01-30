@@ -319,8 +319,15 @@ function cpu() {
                         // $('[compare=' + first + ']').addClass('compFoundCard');
                         // console.log('parent element ', $('[compare=' + first + ']').parent());
                         // console.log('child element ', $('[compare=' + first + ']'));
-                        cardsNotFlipped[randomCard].classList.add('backFlip');
-                        cardsNotFlipped[randomCard].firstElementChild.classList.add('compFoundCard');
+                        let twoCards = document.querySelectorAll("[compare='"+first+"']");
+                        twoCards[0].parentNode.classList.add('backFlip');
+                        twoCards[1].parentNode.classList.add('backFlip');
+                        twoCards[0].classList.add('compFoundCard');
+                        twoCards[1].classList.add('compFoundCard');
+
+                        // cardsNotFlipped[randomCard].classList.add('backFlip');
+                        // cardsNotFlipped[randomCard].firstElementChild.classList.add('compFoundCard');
+
                         compMatchCount++;
                         compTotalCards++;
                         compAccuracy = (compMatchCount / compTotalCards) * 100;
@@ -385,7 +392,7 @@ function cpu() {
                     }
                     if (first == second) {
                         // $('[compare=' + first + ']').addClass('compFoundCard');
-                        let twoCards = document.querySelectorAll("[compare='"+first+"']").classList.add('compFoundCard');
+                        let twoCards = document.querySelectorAll("[compare='"+first+"']");
                         twoCards[0].classList.add('compFoundCard');
                         twoCards[1].classList.add('compFoundCard');
 
@@ -449,9 +456,16 @@ function cpu() {
 function whoWon() {
     if (matchCount > compMatchCount) {
         //user wins
-        var h1 = $('<h1>').text('You Win!');
-        var content = $('<h2>').text('You have gathered more nuclear resources than your opponent. Nuclear domination is assured')
-        $('.modal-body').append(h1,content);
+        // var h1 = $('<h1>').text('You Win!');
+        let h1 = document.createElement('h1');
+        h1.innerHTML = 'You Win!';
+        // var content = $('<h2>').text('You have gathered more nuclear resources than your opponent. Nuclear domination is assured')
+        let content = document.createElement('h2');
+        content.innerHTML = 'You have gathered more nuclear resources than your opponent. Nuclear domination is assured';
+        // $('.modal-body').append(h1,content);
+        let modal = document.querySelector('.modal-body');
+        modal.appendChild(h1);
+        modal.appendChild(content);
 
     }
     if (matchCount < compMatchCount) {
