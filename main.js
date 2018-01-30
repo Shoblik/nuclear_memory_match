@@ -186,11 +186,8 @@ function cardHandler(event) {
         //if it's the first card store that card and increase card count to 1
 
         firstCard = event.target;
+        console.log(firstCard);
         first = firstCard.parentNode.firstElementChild.getAttribute('compare');
-        console.log('first card that gets clicked ', firstCard.parentNode.firstElementChild);
-        console.log('compare val ', first);
-        console.log(firstCard.parentNode.firstElementChild);
-        // console.log(firstCard.parentNode.firstElementChild);
         firstCard.parentNode.classList.add('backFlip');
         cardCount++;
     }
@@ -203,7 +200,6 @@ function cardHandler(event) {
             cardCount = 1;
             return;
         }
-        console.log('second ', second);
         console.log(secondCard.parentNode.firstElementChild);
         secondCard.parentNode.classList.add('backFlip');
         totalCards++;
@@ -222,7 +218,6 @@ function compare() {
             // secondCard.find('.front').addClass('foundCard');
             firstCard.parentNode.firstElementChild.classList.add('foundCard');
             secondCard.parentNode.firstElementChild.classList.add('foundCard');
-            console.log('matched!!!!!!!!!');
             cardCount = 0;
         }, 500);
         matchCount++;
@@ -249,7 +244,6 @@ function compare() {
     }
     else {
         //If the cards don't match flip them back over and set cardCount to 0
-        console.log('no matches here!!!!!');
         setTimeout(function() {
             // firstCard.removeClass('backFlip').css('transition', '1.0s');
             // secondCard.removeClass('backFlip').css('transition', '1.0s');
@@ -257,11 +251,10 @@ function compare() {
             secondCard.parentNode.style.transition = '1s';
             firstCard.parentNode.classList.remove('backFlip');
             secondCard.parentNode.classList.remove('backFlip');
-            console.log(firstCard.parentNode, secondCard.parentNode);
             cardCount = 0;
             if (playerOne === true) {
                 accuracy = (matchCount / totalCards) * 100;
-                $('.accuracy').text(accuracy.toFixed(1) + '%');
+                // $('.accuracy').text(accuracy.toFixed(1) + '%');
                 document.querySelector('.accuracy').innerHTML = accuracy.toFixed(1) + '%';
             }
             playerOne = false;
@@ -292,16 +285,27 @@ function cpu() {
                 compMemory.push(first, second);
             }
             //Pick a card randomly and flip it
-            var cardsNotFlipped = $('.card').not('.backFlip, .seen');
+            // var cardsNotFlipped = $('.card').not('.backFlip, .seen');
+            var cardsNotFlipped = document.querySelectorAll('DIV[class*=card]:not(.backFlip):not(.seen)');
             if(cardsNotFlipped.length === 0) {
-                $('.card').removeClass('seen');
-                cardsNotFlipped = $('.card').not('.backFlip, .seen');
+                // $('.card').removeClass('seen');
+                //
+                document.querySelectorAll('.card').classList.remove('seen');
+                //
+                // cardsNotFlipped = $('.card').not('.backFlip, .seen');
+                //
+                cardsNotFlipped = document.querySelectorAll('DIV[class*=card]:not(.backFlip):not(.seen)');
+                //
             }
             var randomCard = Math.floor((Math.random() * cardsNotFlipped.length));
-            var compCard = cardsNotFlipped[randomCard];
-            $(compCard).addClass('backFlip');
+            // var compCard = cardsNotFlipped[randomCard];
+            // $(compCard).addClass('backFlip');
+            cardsNotFlipped[randomCard].classList.add('backFlip');
             //look at the cards compare value, if it exists in the computers memory, find it
-            first = $(compCard).find('.front').attr('compare');
+            // first = $(compCard).find('.front').attr('compare');
+            first = cardsNotFlipped[randomCard].firstElementChild.getAttribute('compare');
+            console.log('new first ', first);
+            // console.log('first element chosen ', cardsNotFlipped[randomCard]);
 
             setTimeout(function () {
                 var seenCard = 0;
@@ -311,14 +315,20 @@ function cpu() {
                     }
                     //////////////End the game if the comp finds the last card
                     if (compMemory[i] == first && seenCard === 2 && compMatchCount+matchCount === 8) {
-                        $('[compare=' + first + ']').parent().addClass('backFlip');
-                        $('[compare=' + first + ']').addClass('compFoundCard');
+                        // $('[compare=' + first + ']').parent().addClass('backFlip');
+                        // $('[compare=' + first + ']').addClass('compFoundCard');
+                        // console.log('parent element ', $('[compare=' + first + ']').parent());
+                        // console.log('child element ', $('[compare=' + first + ']'));
+                        cardsNotFlipped[randomCard].classList.add('backFlip');
+                        cardsNotFlipped[randomCard].firstElementChild.classList.add('compFoundCard');
                         compMatchCount++;
                         compTotalCards++;
                         compAccuracy = (compMatchCount / compTotalCards) * 100;
-                        $('.compAccuracy').text(compAccuracy.toFixed(1)+'%');
+                        // $('.compAccuracy').text(compAccuracy.toFixed(1)+'%');
+                        document.querySelector('.compAccuracy').innerHTML = compAccuracy.toFixed(1) + '%';
 
-                        $('.compPoints').text(compMatchCount);
+                        // $('.compPoints').text(compMatchCount);
+                        document.querySelector('.compPoints').innerHTML = compMatchCount + '';
                         playerOne = true;
                         pickAnotherCard = false;
                         seenCard = 0;
@@ -327,14 +337,25 @@ function cpu() {
 
                     }
                     else if (compMemory[i] == first && seenCard === 2 && compMatchCount+matchCount !== 8) {
-                        $('[compare=' + first + ']').parent().addClass('backFlip');
-                        $('[compare=' + first + ']').addClass('compFoundCard');
+                        // $('[compare=' + first + ']').parent().addClass('backFlip');
+                        // $('[compare=' + first + ']').addClass('compFoundCard');
+                        let twoCards = document.querySelectorAll("[compare='"+first+"']");
+
+                        twoCards[0].parentNode.classList.add('backFlip');
+                        twoCards[1].parentNode.classList.add('backFlip');
+                        twoCards[0].classList.add('compFoundCard');
+                        twoCards[1].classList.add('compFoundCard');
+
+
                         compMatchCount++;
                         compTotalCards++;
                         compAccuracy = (compMatchCount / compTotalCards) * 100;
-                        $('.compAccuracy').text(compAccuracy.toFixed(1)+'%');
+                        // $('.compAccuracy').text(compAccuracy.toFixed(1)+'%');
+                        document.querySelector('.compAccuracy').innerHTML = compAccuracy.toFixed(1) + '%';
+
                         setTimeout(function() {
-                            $('.compPoints').text(compMatchCount);
+                            // $('.compPoints').text(compMatchCount);
+                            document.querySelector('.compPoints').innerHTML = compMatchCount + '';
                         }, 1000);
                         playerOne = false;
                         pickAnotherCard = false;
@@ -348,23 +369,35 @@ function cpu() {
 
 
             setTimeout(function () {
-                cardsNotFlipped = $('.card').not('.backFlip');
+                // cardsNotFlipped = $('.card').not('.backFlip');
+                cardsNotFlipped = document.querySelectorAll('DIV[class*=card]:not(.backFlip)'); //why not have seen here as well?
+
                 randomCard = Math.floor((Math.random() * cardsNotFlipped.length));
                 if (pickAnotherCard === true) {
-                    $(cardsNotFlipped[randomCard]).addClass('backFlip');
-                    var second = $(cardsNotFlipped[randomCard]).find('.front').attr('compare');
+                    // $(cardsNotFlipped[randomCard]).addClass('backFlip');
+                    cardsNotFlipped[randomCard].classList.add('backFlip');
+                    // var second = $(cardsNotFlipped[randomCard]).find('.front').attr('compare');
+                    var second = cardsNotFlipped[randomCard].firstElementChild.getAttribute('compare');
+                    console.log('this needs to be a valid compare value ', second);
                     if (compMemoryRandomNum <= chanceOfRemembering) {
                         compMemory.push(first);
                         compMemory.push(second);
                     }
                     if (first == second) {
-                        $('[compare=' + first + ']').addClass('compFoundCard');
+                        // $('[compare=' + first + ']').addClass('compFoundCard');
+                        let twoCards = document.querySelectorAll("[compare='"+first+"']").classList.add('compFoundCard');
+                        twoCards[0].classList.add('compFoundCard');
+                        twoCards[1].classList.add('compFoundCard');
+
+
                         compMatchCount++;
                         compTotalCards++;
                         compAccuracy = (compMatchCount / compTotalCards) * 100;
-                        $('.compAccuracy').text(compAccuracy.toFixed(1)+'%');
+                        // $('.compAccuracy').text(compAccuracy.toFixed(1)+'%');
+                        document.querySelector('.compAccuracy').innerHTML = compAccuracy.toFixed(1) + '%';
                         setTimeout(function() {
-                            $('.compPoints').text(compMatchCount);
+                            // $('.compPoints').text(compMatchCount);
+                            document.querySelector('.compPoints').innerHTML = compMatchCount + '';
                         }, 1000);
                         playerOne = false;
                         cpu();
@@ -374,16 +407,37 @@ function cpu() {
 
                         setTimeout(function () {
                             playerOne = true;
-                            $('[compare=' + first + ']').parent().removeClass('backFlip').addClass('seen');
-                            $('[compare=' + second + ']').parent().removeClass('backFlip').addClass('seen');
-                            $('.turn').text('Your Turn!').css({
-                                'color': 'lightGreen',
-                                'transition': '1s',
-                            });
+                            console.log('these guys are getting seen by the comp ', first, second);
+                            let firstCards = document.querySelectorAll("[compare='"+first+"']");
+                            let secondCards = document.querySelectorAll("[compare='"+second+"']");
+                            firstCards[0].parentNode.classList.remove('backFlip');
+                            firstCards[1].parentNode.classList.remove('backFlip');
+                            secondCards[0].parentNode.classList.remove('backFlip');
+                            secondCards[1].parentNode.classList.remove('backFlip');
+                            firstCards[0].parentNode.classList.add('seen');
+                            secondCards[0].parentNode.classList.add('seen');
+
+
+
+                            console.log('FIRST AND SECOND CARDS ', firstCards, secondCards);
+                            // $('[compare=' + first + ']').parent().removeClass('backFlip');
+                            // $('[compare=' + first + ']').eq(0).parent().addClass('seen');
+                            // $('[compare=' + second + ']').parent().removeClass('backFlip');
+                            // $('[compare=' + second + ']').eq(0).parent().addClass('seen');
+
+                            // $('.turn').text('Your Turn!').css({
+                            //     'color': 'lightGreen',
+                            //     'transition': '1s',
+                            // });
+                            let turnEle = document.querySelector('.turn');
+                            turnEle.innerHTML = 'Your Turn!';
+                            turnEle.style.color = 'lightGreen';
+                            turnEle.style.transition = '1s';
+
                             compTotalCards++;
                             compAccuracy = (compMatchCount / compTotalCards) * 100;
-                            $('.compAccuracy').text(compAccuracy.toFixed(1)+'%');
-
+                            // $('.compAccuracy').text(compAccuracy.toFixed(1)+'%');
+                            document.querySelector('.compAccuracy').innerHTML = compAccuracy.toFixed(1) + '%';
                         }, 1000);
                     }
                 }
