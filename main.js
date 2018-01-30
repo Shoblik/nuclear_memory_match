@@ -187,7 +187,8 @@ function cardHandler(event) {
 
         firstCard = event.target;
         first = firstCard.parentNode.firstElementChild.getAttribute('compare');
-        console.log('first ', first);
+        console.log('first card that gets clicked ', firstCard.parentNode.firstElementChild);
+        console.log('compare val ', first);
         console.log(firstCard.parentNode.firstElementChild);
         // console.log(firstCard.parentNode.firstElementChild);
         firstCard.parentNode.classList.add('backFlip');
@@ -250,18 +251,30 @@ function compare() {
         //If the cards don't match flip them back over and set cardCount to 0
         console.log('no matches here!!!!!');
         setTimeout(function() {
-            firstCard.removeClass('backFlip').css('transition', '1.0s');
-            secondCard.removeClass('backFlip').css('transition', '1.0s');
+            // firstCard.removeClass('backFlip').css('transition', '1.0s');
+            // secondCard.removeClass('backFlip').css('transition', '1.0s');
+            firstCard.parentNode.style.transition = '1s';
+            secondCard.parentNode.style.transition = '1s';
+            firstCard.parentNode.classList.remove('backFlip');
+            secondCard.parentNode.classList.remove('backFlip');
+            console.log(firstCard.parentNode, secondCard.parentNode);
             cardCount = 0;
             if (playerOne === true) {
                 accuracy = (matchCount / totalCards) * 100;
                 $('.accuracy').text(accuracy.toFixed(1) + '%');
+                document.querySelector('.accuracy').innerHTML = accuracy.toFixed(1) + '%';
             }
             playerOne = false;
-            $('.turn').text('CPU\'s Turn').css({
-                'color': 'red',
-                'transition': '1s',
-            });
+            // $('.turn').text('CPU\'s Turn').css({
+            //     'color': 'red',
+            //     'transition': '1s',
+            // });
+            //
+            let turnEle = document.querySelector('.turn');
+            turnEle.innerHTML = 'CPU\'s Turn';
+            turnEle.style.color = 'red';
+            turnEle.style.transition = '1s';
+            //
             cpu();
         }, 1000);
     }
