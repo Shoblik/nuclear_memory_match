@@ -1,5 +1,6 @@
-$(document).ready(function() {
-
+console.log('body not loaded');
+function initializeApp() {
+   console.log('body loaded');
     reset();
     // $('.card').on('click', cardHandler);
     //
@@ -18,9 +19,9 @@ $(document).ready(function() {
     //
 
     /////////////////////////////////////REMOVE BEFORE RELEASE//////////////////////////
-    $('.accuracy').on('click', function() {
-       $('.card').toggleClass('backFlip');
-    });
+    // $('.accuracy').on('click', function() {
+    //    $('.card').toggleClass('backFlip');
+    // });
     ///////////////////////////////////////////////////////////////////////////////////
 
 //Close the modal when the X is clicked
@@ -61,7 +62,8 @@ $(document).ready(function() {
             //
         }
     }
-});
+};
+//Once body loads ^
 var totalCards = 0;
 var cardCount = 0;
 var timesPlayed = -1;
@@ -482,39 +484,88 @@ function whoWon() {
     resetBtn.addEventListener('click', reset);
     document.querySelector('.modal-footer').appendChild(resetBtn);
     document.querySelector('.modal').style.display = 'block';
-
 }
 ///////////////////////////////////Settings////////////////////////////////////////////////////
 
 function changeSettings () {
-    var h1 = $('<h1>').text('Settings').css({'text-decoration': 'underline'});
-    var h2 = $('<h2>').text('CPU difficulty').css('text-align', 'center');
-    var btnDiv = $('<div>').addClass('buttonWrapper');
-    var easyBtn = $('<button>').addClass('difficultyBtn easy').text('Easy');
-    var mediumBtn = $('<button>').addClass('difficultyBtn medium').text('Medium');
-    var hardBtn = $('<button>').addClass('difficultyBtn hard').text('Hard');
-    $(btnDiv).append(easyBtn,mediumBtn,hardBtn);
-    $('.modal-body').append(h1,h2,btnDiv);
-    $('.modal').css('display', 'block');
+    // var h1 = $('<h1>').text('Settings').css({'text-decoration': 'underline'});
+    let h1 = document.createElement('h1');
+    h1.innerHTML = 'Settings';
+    h1.style.textDecoration = 'underline';
 
-    $('body').on('click','.easy', function() {
+    // var h2 = $('<h2>').text('CPU difficulty').css('text-align', 'center');
+    let h2 = document.createElement('h2');
+    h2.innerHTML = 'CPU difficulty';
+    h2.style.textAlign = 'center';
+
+    // var btnDiv = $('<div>').addClass('buttonWrapper');
+    let btnDiv = document.createElement('div');
+    btnDiv.classList.add('buttonWrapper');
+
+    // var easyBtn = $('<button>').addClass('difficultyBtn easy').text('Easy');
+    let easyBtn = document.createElement('button');
+    easyBtn.innerHTML = 'Easy';
+    easyBtn.classList.add('difficultyBtn', 'easy');
+    easyBtn.addEventListener('click', function() {
         chanceOfRemembering = 6;
-        $('.difficulty').text('Easy');
-        $('.modal').css('display', 'none');
-        $(".modal-body").html("");
-    });
-    $('body').on('click','.medium', function() {
+        document.querySelector('.difficulty').innerHTML = 'Easy';
+        document.querySelector('.modal').style.display = 'none';
+        document.querySelector('.modal-body').innerHTML= '';
+    })
+
+    // var mediumBtn = $('<button>').addClass('difficultyBtn medium').text('Medium');
+    let mediumBtn = document.createElement('button');
+    mediumBtn.classList.add('difficultyBtn', 'medium');
+    mediumBtn.innerHTML = 'Medium';
+    mediumBtn.addEventListener('click', function() {
         chanceOfRemembering = 8;
-        $('.difficulty').text('Medium');
-        $('.modal').css('display', 'none');
-        $(".modal-body").html("");
-    });
-    $('body').on('click','.hard', function() {
+        document.querySelector('.difficulty').innerHTML = 'Medium';
+        document.querySelector('.modal').style.display = 'none';
+        document.querySelector('.modal-body').innerHTML= '';
+    })
+
+    // var hardBtn = $('<button>').addClass('difficultyBtn hard').text('Hard');
+    let hardBtn = document.createElement('button');
+    hardBtn.classList.add('difficultyBtn', 'hard');
+    hardBtn.innerHTML = 'Hard';
+    hardBtn.addEventListener('click', function() {
         chanceOfRemembering = 10;
-        $('.difficulty').text('Hard');
-        $('.modal').css('display', 'none');
-        $(".modal-body").html("");
-    });
+        document.querySelector('.difficulty').innerHTML = 'Hard';
+        document.querySelector('.modal').style.display = 'none';
+        document.querySelector('.modal-body').innerHTML= '';
+    })
+
+    // $(btnDiv).append(easyBtn,mediumBtn,hardBtn);
+    btnDiv.appendChild(easyBtn);
+    btnDiv.appendChild(mediumBtn);
+    btnDiv.appendChild(hardBtn);
+
+    // $('.modal-body').append(h1,h2,btnDiv);
+    let modalBody = document.querySelector('.modal-body');
+    modalBody.appendChild(h1);
+    modalBody.appendChild(h2);
+    modalBody.appendChild(btnDiv);
+    document.querySelector('.modal').style.display = 'block';
+    // $('.modal').css('display', 'block');
+
+    // $('body').on('click','.easy', function() {
+    //     chanceOfRemembering = 6;
+    //     $('.difficulty').text('Easy');
+    //     $('.modal').css('display', 'none');
+    //     $(".modal-body").html("");
+    // });
+    // $('body').on('click','.medium', function() {
+    //     chanceOfRemembering = 8;
+    //     $('.difficulty').text('Medium');
+    //     $('.modal').css('display', 'none');
+    //     $(".modal-body").html("");
+    // });
+    // $('body').on('click','.hard', function() {
+    //     chanceOfRemembering = 10;
+    //     $('.difficulty').text('Hard');
+    //     $('.modal').css('display', 'none');
+    //     $(".modal-body").html("");
+    // });
 }
 /////////////////////////////////////////////////
 // function flash() {
