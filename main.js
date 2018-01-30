@@ -150,6 +150,7 @@ function cardHandler(event) {
 }
 
 function compare() {
+    console.log(firstCard.parentNode, secondCard.parentNode);
     if (first === second) {
         //if the cards match things match here and card count get's reset to 0
         setTimeout(function() {
@@ -206,6 +207,8 @@ function AI() {
             var compMemoryRandomNum = Math.floor((Math.random() * 10) + 1);
             if (compMemoryRandomNum <= chanceOfRemembering) {
                 compMemory.push(first, second);
+                firstCard.parentNode.classList.add('seen');
+                secondCard.parentNode.classList.add('seen');
             }
             //Pick a card randomly and flip it
             var cardsNotFlipped = document.querySelectorAll('DIV[class*=card]:not(.backFlip):not(.seen)');
