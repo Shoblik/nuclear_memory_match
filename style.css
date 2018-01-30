@@ -150,6 +150,8 @@ img {
     position: relative;
     top: 50%;
     transform: translate(0,-50%);
+    pointer-events: none;
+    opacity: .8;
 }
 .leftBar .wrapper .accuracy {
     margin: 0;

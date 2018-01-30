@@ -1,7 +1,7 @@
 console.log('body not loaded');
 function initializeApp() {
    console.log('body loaded');
-    reset();
+    reset(false);
     // $('.card').on('click', cardHandler);
     //
     const card = document.getElementsByClassName("card");
@@ -19,9 +19,9 @@ function initializeApp() {
     //
 
     /////////////////////////////////////REMOVE BEFORE RELEASE//////////////////////////
-    // $('.accuracy').on('click', function() {
-    //    $('.card').toggleClass('backFlip');
-    // });
+    $('.accuracy').on('click', function() {
+       $('.card').toggleClass('backFlip');
+    });
     ///////////////////////////////////////////////////////////////////////////////////
 
 //Close the modal when the X is clicked
@@ -44,10 +44,11 @@ function initializeApp() {
     //     });
     // });
     document.getElementsByClassName("reset")[0].addEventListener('click', function() {
+        console.log('reset clicked');
         const modal = document.getElementsByClassName("modal")[0];
         modal.style.display = 'none';
         modal.style.transition = '1s';
-
+        reset(true);
     });
 //Close the modal when the user click anywhere other than the modal
     window.onclick = function(event) {
@@ -85,7 +86,7 @@ var chanceOfRemembering = 8;
 
 
 
-function reset() {
+function reset(slowDown) {
     // $('.modal').css('display', 'none');
     //
     document.querySelector('.modal').style.display = 'none';
@@ -172,15 +173,25 @@ function reset() {
         // var cards = $('.row').find('.card .front');
         var cards = document.querySelectorAll('.front');
 
-        for (var i=0;i<cards.length;i++) {
-            var randomNum = Math.floor((Math.random() * cardArr.length));
-            cards[i].style.backgroundImage = 'url('+imgArr[randomNum]+')';
-            cards[i].style.backgroundPosition = 'center';
-            cards[i].style.backgroundSize = '140%';
-            cards[i].setAttribute('compare', cardArr[randomNum] + '');
-            cardArr.splice(randomNum, 1);
-            imgArr.splice(randomNum, 1);
+        function shuffleDeck() {
+            for (var i=0;i<cards.length;i++) {
+                var randomNum = Math.floor((Math.random() * cardArr.length));
+                cards[i].style.backgroundImage = 'url('+imgArr[randomNum]+')';
+                cards[i].style.backgroundPosition = 'center';
+                cards[i].style.backgroundSize = '140%';
+                cards[i].setAttribute('compare', cardArr[randomNum] + '');
+                cardArr.splice(randomNum, 1);
+                imgArr.splice(randomNum, 1);
+            }
         }
+        if (!slowDown) {
+            shuffleDeck();
+        } else {
+            setTimeout(function() {
+                shuffleDeck();
+            }, 1000);
+        }
+
 }
 function cardHandler(event) {
     if (cardCount === 0 && playerOne === true) {
@@ -197,7 +208,7 @@ function cardHandler(event) {
         // secondCard = $(this);
         secondCard = event.target;
         second = secondCard.parentNode.firstElementChild.getAttribute('compare');
-        if (secondCard.parentNode.firstElementChild.classList.contains('backFlip')) {
+        if (secondCard.parentNode.classList.contains('backFlip')) {
             cardCount = 1;
             return;
         }
@@ -481,7 +492,9 @@ function whoWon() {
     let resetBtn = document.createElement('button');
     resetBtn.classList.add('reset');
     resetBtn.innerHTML = 'Play Again';
-    resetBtn.addEventListener('click', reset);
+    resetBtn.addEventListener('click', function() {
+        reset(true);
+    });
     document.querySelector('.modal-footer').appendChild(resetBtn);
     document.querySelector('.modal').style.display = 'block';
 }
