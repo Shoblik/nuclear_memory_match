@@ -11,7 +11,6 @@ $(document).ready(function() {
     //
     // $('body').on('click','.reset' ,reset);
     //
-    document.getElementsByClassName("reset")[0].addEventListener('click', reset);
     //
     // $('.settings').on('click', changeSettings);
     //
@@ -454,48 +453,46 @@ function cpu() {
 
 }
 function whoWon() {
+    let h1 = document.createElement('h1');
+    let content = document.createElement('h2');
+    let modal = document.querySelector('.modal-body');
+
     if (matchCount > compMatchCount) {
         //user wins
-        // var h1 = $('<h1>').text('You Win!');
-        let h1 = document.createElement('h1');
         h1.innerHTML = 'You Win!';
-        // var content = $('<h2>').text('You have gathered more nuclear resources than your opponent. Nuclear domination is assured')
-        let content = document.createElement('h2');
         content.innerHTML = 'You have gathered more nuclear resources than your opponent. Nuclear domination is assured';
-        // $('.modal-body').append(h1,content);
-        let modal = document.querySelector('.modal-body');
-        modal.appendChild(h1);
-        modal.appendChild(content);
-
     }
     if (matchCount < compMatchCount) {
         //comp wins
-        var h1 = $('<h1>').text('You Lose.');
-        var content = $('<h2>').text('Your opponent has gathered more nuclear resources and will have a larger arsenal than you.')
-        $('.modal-body').append(h1,content);
-
+        h1.innerHTML = 'You Lose.';
+        content.innerHTML = 'Your opponent has gathered more nuclear resources and will have a larger arsenal than you.';
     }
     else if (matchCount === compMatchCount) {
         //tie
-        var h1 = $('<h1>').text('Tie');
-        var content = $('<h2>').text('New nuclear resources have been discovered try again to break the stalemate')
-        $('.modal-body').append(h1,content);
-
+        h1.innerHTML = 'Tie';
+        content.innerHTML = 'New nuclear resources have been discovered try again to break the stalemate'
     }
-    var resetBtn = $('<button>').addClass('reset').text('Play Again');
-    $('.modal-footer').append(resetBtn);
+    modal.appendChild(h1);
+    modal.appendChild(content);
 
-    $('.modal').css('display', 'block');
+    // var resetBtn = $('<button>').addClass('reset').text('Play Again');
+    let resetBtn = document.createElement('button');
+    resetBtn.classList.add('reset');
+    resetBtn.innerHTML = 'Play Again';
+    resetBtn.addEventListener('click', reset);
+    document.querySelector('.modal-footer').appendChild(resetBtn);
+    document.querySelector('.modal').style.display = 'block';
+
 }
 ///////////////////////////////////Settings////////////////////////////////////////////////////
 
 function changeSettings () {
-    var h1 = $('<h1>').text('Settings').css({'text-decoration': 'underline'})
+    var h1 = $('<h1>').text('Settings').css({'text-decoration': 'underline'});
     var h2 = $('<h2>').text('CPU difficulty').css('text-align', 'center');
     var btnDiv = $('<div>').addClass('buttonWrapper');
     var easyBtn = $('<button>').addClass('difficultyBtn easy').text('Easy');
     var mediumBtn = $('<button>').addClass('difficultyBtn medium').text('Medium');
-    var hardBtn = $('<button>').addClass('difficultyBtn hard').text('Hard')
+    var hardBtn = $('<button>').addClass('difficultyBtn hard').text('Hard');
     $(btnDiv).append(easyBtn,mediumBtn,hardBtn);
     $('.modal-body').append(h1,h2,btnDiv);
     $('.modal').css('display', 'block');
