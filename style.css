@@ -182,17 +182,18 @@ img {
 }
 .reset {
     position: relative;
-    top: 8vh;
+    top: 3vh;
     width: 100px;
     height: 50px;
     color: white;
     background-color: red;
     border: none;
     cursor: pointer;
+    left: 50%;
+    transform: translateX(-50%);
 }
 .rightBar .wrapper .settings {
     position: relative;
-    top: 18vh;
     color: white;
     font-size: 1.3rem;
     text-decoration: underline;
@@ -201,8 +202,9 @@ img {
 .rightBar .wrapper .info {
     position: relative;
     color: white;
-    top: 2vh;
+    top: 0;
     cursor: pointer;
+    margin: 0;
 }
 .rightBar .wrapper .difficulty {
     font-size: 2em;
@@ -211,6 +213,24 @@ img {
 }
 .rightBar .wrapper .diffDiv {
     margin-top: 10%;
+}
+.info > button {
+    background-color: blue;
+    border: none;
+    height: 40px;
+    width: 80px;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+.settings > button {
+    border: none;
+    width: 80px;
+    height: 40px;
+    color: white;
+    background-color: darkorange;
+    font-size: 1.1rem;
+    cursor: pointer;
 }
 /*//////////////////////////////////////MODAL////////////////////////////////////////////////////////////*/
 .modal {
