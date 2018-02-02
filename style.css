@@ -106,10 +106,13 @@ transition: 1s;
 }
 
 /*Inside leftBar/////////////////////////////////////////////////////////////////*/
-.leftBar .wrapper .settings {
-    font-size: 1em;
-    text-align: center;
+.rightBar .wrapper .settings {
+    position: relative;
+    color: white;
+    font-size: 1.3rem;
     text-decoration: underline;
+    cursor: pointer;
+    margin: 30px 0;
 }
 
 .leftBar .wrapper h4, .rightBar .wrapper h4 {
@@ -198,6 +201,7 @@ img {
     font-size: 1.3rem;
     text-decoration: underline;
     cursor: pointer;
+    margin: 12px 0;
 }
 .rightBar .wrapper .info {
     position: relative;
@@ -209,7 +213,7 @@ img {
 .rightBar .wrapper .difficulty {
     font-size: 2em;
     margin: 0;
-    color: white;
+    color: black;
 }
 .rightBar .wrapper .diffDiv {
     margin-top: 10%;
@@ -231,6 +235,13 @@ img {
     background-color: rgb(255, 115, 1);
     font-size: 1.1rem;
     cursor: pointer;
+}
+h4.diffDiv, div.difficulty {
+    background-color: rgba(255,255,255, .6);
+    margin: 0 !important;
+}
+h4.diffDiv {
+    padding-top: 13px;
 }
 /*//////////////////////////////////////MODAL////////////////////////////////////////////////////////////*/
 .modal {
