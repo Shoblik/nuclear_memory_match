@@ -177,22 +177,23 @@ img {
     color: red;
 }
 .rightBar .wrapper .compAccuracy {
-    margin: 5% 0 0% 0;
-
+    margin: 5% 0 0 0;
 }
 .reset {
     position: relative;
-    top: 8vh;
+    top: 3vh;
     width: 100px;
     height: 50px;
     color: white;
-    background-color: red;
+    background-color: rgb(185, 0, 1);
     border: none;
     cursor: pointer;
+    left: 50%;
+    font-size: 1.1rem;
+    transform: translateX(-50%);
 }
 .rightBar .wrapper .settings {
     position: relative;
-    top: 18vh;
     color: white;
     font-size: 1.3rem;
     text-decoration: underline;
@@ -201,8 +202,9 @@ img {
 .rightBar .wrapper .info {
     position: relative;
     color: white;
-    top: 2vh;
+    top: 0;
     cursor: pointer;
+    margin: 0;
 }
 .rightBar .wrapper .difficulty {
     font-size: 2em;
@@ -212,27 +214,46 @@ img {
 .rightBar .wrapper .diffDiv {
     margin-top: 10%;
 }
+.info > button {
+    background-color: rgb(1, 95, 254);
+    border: none;
+    height: 40px;
+    width: 80px;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+.settings > button {
+    border: none;
+    width: 80px;
+    height: 40px;
+    color: white;
+    background-color: rgb(255, 115, 1);
+    font-size: 1.1rem;
+    cursor: pointer;
+}
 /*//////////////////////////////////////MODAL////////////////////////////////////////////////////////////*/
 .modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    display: none;
+    position: fixed;
+    z-index: 1;
     left: 0;
     top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
+    width: 100%;
+    height: 100%;
+    overflow: auto;
     background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    background-color: rgba(0,0,0,0.8); /* Black w/ opacity */
 }
 
 /* Modal Content/Box */
 .modal-content {
-    background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
+    background-color: rgba(0,0,0, .7);
+    margin: 15% auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 28%; /* Could be more or less, depending on screen size */
+    width: 28%;
+    color: white;
 }
 .modal-body h1 {
     text-align: center;
@@ -262,8 +283,24 @@ img {
 }
 .difficultyBtn {
     display: inline-block;
-    background-color: lightBlue;
     width: 100px;
     height: 50px;
     margin: 0 10px;
+    border: none;
+    color: black;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+.easy {
+    background-color: #6da06f;
+}
+.medium {
+    background-color: #ffbb43;
+}
+.hard {
+    background-color: #c13525;
+}
+span.close:hover {
+    border-radius: 50%;
+    color: white;
 }
