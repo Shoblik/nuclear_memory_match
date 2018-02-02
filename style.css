@@ -221,16 +221,16 @@ img {
 .info > button {
     background-color: rgb(1, 95, 254);
     border: none;
-    height: 40px;
-    width: 80px;
+    height: 50px;
+    width: 90px;
     color: white;
     font-size: 1.2rem;
     cursor: pointer;
 }
 .settings > button {
     border: none;
-    width: 80px;
-    height: 40px;
+    width: 90px;
+    height: 50px;
     color: white;
     background-color: rgb(255, 115, 1);
     font-size: 1.1rem;
@@ -305,11 +305,29 @@ h4.diffDiv {
 .easy {
     background-color: #6da06f;
 }
+.easy:hover {
+    border: 2px solid #6da06f;
+    background-color: transparent;
+    color: #6da06f;
+    transition: .3s;
+}
 .medium {
     background-color: #ffbb43;
 }
+.medium:hover {
+    border: 2px solid #ffbb43;
+    background-color: transparent;
+    color: #ffbb43;
+    transition: .3s;
+}
 .hard {
     background-color: #c13525;
+}
+.hard:hover {
+    border: 2px solid #c13525;
+    background-color: transparent;
+    color: #c13525;
+    transition: .3s;
 }
 span.close:hover {
     border-radius: 50%;
