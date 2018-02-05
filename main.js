@@ -81,22 +81,22 @@ function reset(slowDown) {
     /////////////////////////////////////////////////////////
         const staticImgArray = [
             'images/engineer.png',
-            'images/nuclearFusion.png',
+            'images/nuclear_bomb.png',
             'images/microscope.png',
             'images/miner2.png',
             'images/nuclearExplosion.png',
             'images/plutoniumAtom.png',
             'images/radioactive.png',
-            'images/rocketsicon.png',
+            'images/rocket_icon.png',
             'images/powerPlant.png',
             'images/engineer.png',
-            'images/nuclearFusion.png',
+            'images/nuclear_bomb.png',
             'images/microscope.png',
             'images/miner2.png',
             'images/nuclearExplosion.png',
             'images/plutoniumAtom.png',
             'images/radioactive.png',
-            'images/rocketsicon.png',
+            'images/rocket_icon.png',
             'images/powerPlant.png'
         ];
         var imgArr = staticImgArray.slice();
