@@ -185,7 +185,7 @@ img {
 .reset {
     position: relative;
     top: 3vh;
-    width: 100px;
+    width: auto;
     height: 50px;
     border: none;
     cursor: pointer;
@@ -196,6 +196,9 @@ img {
     background-color: rgba(0,0,0, .6);
     color: rgb(185, 0, 1);
     transition: .3s;
+}
+.reset.leftColumn {
+    width: 100px;
 }
 .reset:hover {
     color: white;
