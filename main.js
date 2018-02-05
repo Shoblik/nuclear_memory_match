@@ -213,7 +213,10 @@ function AI() {
             //Pick a card randomly and flip it
             var cardsNotFlipped = document.querySelectorAll('DIV[class*=card]:not(.backFlip):not(.seen)');
             if(cardsNotFlipped.length === 0) {
-                document.querySelectorAll('.card').classList.remove('seen');
+                let cards = document.querySelectorAll('.card');
+                for (let i=0; i<cards.length; i++) {
+                    cards[i].classList.remove('seen');
+                }
                 cardsNotFlipped = document.querySelectorAll('DIV[class*=card]:not(.backFlip):not(.seen)');
             }
             var randomCard = Math.floor((Math.random() * cardsNotFlipped.length));
