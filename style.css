@@ -187,13 +187,19 @@ img {
     top: 3vh;
     width: 100px;
     height: 50px;
-    color: white;
-    background-color: rgb(185, 0, 1);
     border: none;
     cursor: pointer;
     left: 50%;
     font-size: 1.1rem;
     transform: translateX(-50%);
+    border: 2px solid rgb(185, 0, 1);
+    background-color: rgba(0,0,0, .6);
+    color: rgb(185, 0, 1);
+    transition: .3s;
+}
+.reset:hover {
+    color: white;
+    background-color: rgb(185, 0, 1);
 }
 .rightBar .wrapper .settings {
     position: relative;
@@ -219,22 +225,33 @@ img {
     margin-top: 10%;
 }
 .info > button {
-    background-color: rgb(1, 95, 254);
-    border: none;
     height: 50px;
     width: 90px;
-    color: white;
     font-size: 1.2rem;
     cursor: pointer;
+    border: 2px solid rgb(1, 95, 254);
+    background-color: transparent;
+    color: rgb(1, 95, 254);
+    transition: .3s;
+}
+.info > button:hover {
+    background-color: rgb(1, 95, 254);
+    color: white;
+    transition: .3s;
 }
 .settings > button {
-    border: none;
     width: 90px;
     height: 50px;
-    color: white;
-    background-color: rgb(255, 115, 1);
     font-size: 1.1rem;
     cursor: pointer;
+    border: 2px solid rgb(255, 115, 1);
+    background-color: transparent;
+    color: rgb(255, 115, 1);
+    transition: .3s;
+}
+.settings > button:hover {
+    color: white;
+    background-color: rgb(255, 115, 1);
 }
 h4.diffDiv, div.difficulty {
     background-color: rgba(255,255,255, .6);
@@ -303,33 +320,40 @@ h4.diffDiv {
     cursor: pointer;
 }
 .easy {
-    background-color: #6da06f;
-}
-.easy:hover {
     border: 2px solid #6da06f;
     background-color: transparent;
     color: #6da06f;
     transition: .3s;
 }
-.medium {
-    background-color: #ffbb43;
+.easy:hover {
+    background-color: #6da06f;
+    color: white;
 }
-.medium:hover {
+.medium {
     border: 2px solid #ffbb43;
     background-color: transparent;
     color: #ffbb43;
     transition: .3s;
 }
+.medium:hover {
+    background-color: #ffbb43;
+    color: white;
+}
 .hard {
     background-color: #c13525;
-}
-.hard:hover {
     border: 2px solid #c13525;
     background-color: transparent;
     color: #c13525;
     transition: .3s;
 }
+.hard:hover {
+    background-color: #c13525;
+    color: white;
+}
 span.close:hover {
     border-radius: 50%;
     color: white;
+}
+button:focus {
+    outline-color: initial;
 }
