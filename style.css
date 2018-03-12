@@ -5,6 +5,7 @@ body, html {
     height: 100%;
     background-image: url('http://cdn.ebaumsworld.com/mediaFiles/picture/2093252/83711051.jpg');
     background-position: center;
+    overflow: hidden;
 }
 header {
     width: 100%;
@@ -29,12 +30,11 @@ header h2 {
     top: 2vh;
     right: 87%;
     color: lightGreen;
-    font-size: 2rem;
+    font-size: 1.5rem;
 }
 header .userPoints {
     display: inline-block;
     color: lightGreen;
-    right: 34%;
     top: 3vh;
     position: relative;
     font-size: 3em;
@@ -44,17 +44,16 @@ header .compPoints {
     color: red;
     top: 3vh;
     position: relative;
-    left: 12%;
+    left: 7%;
     font-size: 3em;
-
 }
 /*Main content area/////////////////////////////////////////////////////////////*/
 .row {
     text-align: center;
     position: relative;
     width: 64%;
-    left: 20%;
     bottom: 80%;
+    margin: auto;
 }
 .row .card {
     display: inline-block;
@@ -136,25 +135,27 @@ transition: 1s;
 .leftBar {
     display: inline-block;
     width: 15%;
-    height: 85vh;
+    min-height: 85vh;
     background-color: rgba(0,0,0, .7);
     border: 2px solid white;
     border-top: none;
     border-bottom: none;
+    overflow-y: auto;
 }
 .tryCount, .timesPlayed, .accuracy, .compAccuracy, .difficulty {
     height: 50px;
     font-size: 3rem;
-    margin-left: 20%;
+    /* margin-left: 20%; */
+    text-align: center;
 }
 img {
-    height: 45%;
-    position: relative;
-    top: 50%;
-    transform: translate(0,-50%);
-    pointer-events: none;
-    opacity: .8;
-}
+     height: 35%;
+     position: relative;
+     top: 50%;
+     transform: translate(0,-50%);
+     pointer-events: none;
+     opacity: .8;
+ }
 .leftBar .wrapper .accuracy {
     margin: 0;
     text-align: center;
@@ -165,7 +166,7 @@ img {
 }
 .rightBar {
     display: inline-block;
-    width: 12%;
+    width: 15%;
     height: 85vh;
     background-color: rgba(0,0,0, .7);
     border: 2px solid white;
@@ -173,7 +174,6 @@ img {
     border-bottom: none;
     float: right;
     text-align: center;
-
 }
 .rightBar .wrapper {
     color: red;
