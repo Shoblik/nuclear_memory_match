@@ -48,11 +48,21 @@ header .compPoints {
     font-size: 3em;
 }
 /*Main content area/////////////////////////////////////////////////////////////*/
+
+.cardContainer {
+    width: 60%;
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    left: 4%;
+    top: 4vh;
+}
+
 .row {
     text-align: center;
     position: relative;
-    width: 64%;
-    bottom: 80%;
+    width: 100%;
+    /* bottom: 80%; */
     margin: auto;
 }
 .row .card {
@@ -167,13 +177,14 @@ img {
 .rightBar {
     display: inline-block;
     width: 15%;
-    height: 85vh;
+    min-height: 85vh;
     background-color: rgba(0,0,0, .7);
     border: 2px solid white;
     border-top: none;
     border-bottom: none;
     float: right;
     text-align: center;
+    overflow-y: auto;
 }
 .rightBar .wrapper {
     color: red;

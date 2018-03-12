@@ -113,6 +113,7 @@ function reset(slowDown) {
                 cards[i].style.backgroundImage = 'url('+imgArr[randomNum]+')';
                 cards[i].style.backgroundPosition = 'center';
                 cards[i].style.backgroundSize = '140%';
+                cards[i].style.backgroundRepeat = 'no-repeat';
                 cards[i].setAttribute('compare', cardArr[randomNum] + '');
                 cardArr.splice(randomNum, 1);
                 imgArr.splice(randomNum, 1);
