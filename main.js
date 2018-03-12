@@ -1,5 +1,18 @@
 function initializeApp() {
     reset(false);
+    if (screen.orientation.angle === 0 && screen.width === 1024 && screen.height === 1366 || screen.orientation.angle === 0 && screen.width === 768 && screen.height === 1024 || screen.orientation.angle === 0 && screen.width < 800) {
+        console.log('please turn you device to landscape modes');
+        changeOrientationMessage();
+    }
+    window.addEventListener("orientationchange", function() {
+        if (screen.orientation.angle === 0 && screen.width === 1024 && screen.height === 1366 || screen.orientation.angle === 0 && screen.width === 768 && screen.height === 1024 || screen.orientation.angle === 0 && screen.width < 800) {
+            console.log('please turn you device to landscape modess');
+            changeOrientationMessage();
+        } else {
+            let messageDiv = document.querySelector('.orientationMessage');
+            messageDiv.parentNode.removeChild(messageDiv);
+        }
+    });
     const card = document.getElementsByClassName("card");
     //attach click handlers
     for (let i = 0; i < card.length; i++) {
@@ -47,6 +60,17 @@ var playerOne = true;
 var compMemory = [];
 var pickAnotherCard = true;
 var chanceOfRemembering = 8;
+
+function changeOrientationMessage() {
+    let div = document.createElement('div');
+    div.classList.add('orientationMessage');
+    let message = document.createElement('h3');
+    message.innerText = 'Please turn your device to landscape mode to view this app';
+    message.classList.add('orientationText');
+    div.appendChild(message);
+
+    document.querySelector('body').appendChild(div);
+}
 
 function reset(slowDown) {
     document.querySelector('.modal').style.display = 'none';
