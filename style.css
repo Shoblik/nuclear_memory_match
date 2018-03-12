@@ -30,7 +30,7 @@ header h2 {
     top: 2vh;
     right: 87%;
     color: lightGreen;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
 }
 header .userPoints {
     display: inline-block;
@@ -145,7 +145,7 @@ transition: 1s;
 
 }
 .leftBar .wrapper h3, .rightBar .wrapper h3 {
-    font-size: 220%;
+    font-size: 145%;
     text-align: left;
     margin-left: 5%;
 }
