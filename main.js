@@ -5,7 +5,10 @@ function initializeApp() {
     for (let i = 0; i < card.length; i++) {
         card[i].addEventListener('click', cardHandler);
     }
-    document.querySelector(".settings").addEventListener('click', changeSettings);
+    document.querySelector("#settingsBtn").addEventListener('click', function() {
+        console.log('click');
+        changeSettings();
+    });
     document.querySelector(".close").addEventListener('click', function() {
         document.querySelector(".modal").style.display = 'none';
         document.querySelector(".modal-body").innerHTML = '';
