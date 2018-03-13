@@ -1,25 +1,30 @@
 function initializeApp() {
     reset(false);
-    if (screen.orientation.angle === 0 && screen.width === 1024 && screen.height === 1366 || screen.orientation.angle === 0 && screen.width === 768 && screen.height === 1024 || screen.orientation.angle === 0 && screen.width < 800) {
-        console.log('please turn you device to landscape modes');
+    window.addEventListener('orientationchange', function() {
+        setTimeout(function() {
+            if (window.matchMedia("(orientation: portrait)").matches) {
+                changeOrientationMessage();
+            } else {
+                try {
+                    let message = document.querySelector('.orientationMessage');
+                    message.parentNode.removeChild(message);
+                }
+                catch(err) {
+                    console.log('The device is already in portrait mode');
+                }
+            }
+        }, 100);
+    });
+    if (window.matchMedia("(orientation: portrait)").matches) {
         changeOrientationMessage();
     }
-    window.addEventListener("orientationchange", function() {
-        if (screen.orientation.angle === 0 && screen.width === 1024 && screen.height === 1366 || screen.orientation.angle === 0 && screen.width === 768 && screen.height === 1024 || screen.orientation.angle === 0 && screen.width < 800) {
-            console.log('please turn you device to landscape modess');
-            changeOrientationMessage();
-        } else {
-            let messageDiv = document.querySelector('.orientationMessage');
-            messageDiv.parentNode.removeChild(messageDiv);
-        }
-    });
+
     const card = document.getElementsByClassName("card");
     //attach click handlers
     for (let i = 0; i < card.length; i++) {
         card[i].addEventListener('click', cardHandler);
     }
     document.querySelector("#settingsBtn").addEventListener('click', function() {
-        console.log('click');
         changeSettings();
     });
     document.querySelector(".close").addEventListener('click', function() {
@@ -70,6 +75,7 @@ function changeOrientationMessage() {
     div.appendChild(message);
 
     document.querySelector('body').appendChild(div);
+
 }
 
 function reset(slowDown) {
@@ -106,52 +112,52 @@ function reset(slowDown) {
     document.querySelector('.compAccuracy').innerHTML = accuracy.toFixed(1) + '%';
     document.querySelector('.tryCount').innerHTML = tryCount + '';
     /////////////////////////////////////////////////////////
-        const staticImgArray = [
-            'images/engineer.png',
-            'images/nuclear_bomb.png',
-            'images/microscope.png',
-            'images/miner2.png',
-            'images/nuclearExplosion.png',
-            'images/plutoniumAtom.png',
-            'images/radioactive.png',
-            'images/rocket_icon.png',
-            'images/powerPlant.png',
-            'images/engineer.png',
-            'images/nuclear_bomb.png',
-            'images/microscope.png',
-            'images/miner2.png',
-            'images/nuclearExplosion.png',
-            'images/plutoniumAtom.png',
-            'images/radioactive.png',
-            'images/rocket_icon.png',
-            'images/powerPlant.png'
-        ];
-        var imgArr = staticImgArray.slice();
-        var staticCardArr = [1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9];
-        var cardArr = staticCardArr.slice();
-        var cards = document.querySelectorAll('.front');
+    const staticImgArray = [
+        'images/engineer.png',
+        'images/nuclear_bomb.png',
+        'images/microscope.png',
+        'images/miner2.png',
+        'images/nuclearExplosion.png',
+        'images/plutoniumAtom.png',
+        'images/radioactive.png',
+        'images/rocket_icon.png',
+        'images/powerPlant.png',
+        'images/engineer.png',
+        'images/nuclear_bomb.png',
+        'images/microscope.png',
+        'images/miner2.png',
+        'images/nuclearExplosion.png',
+        'images/plutoniumAtom.png',
+        'images/radioactive.png',
+        'images/rocket_icon.png',
+        'images/powerPlant.png'
+    ];
+    var imgArr = staticImgArray.slice();
+    var staticCardArr = [1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9];
+    var cardArr = staticCardArr.slice();
+    var cards = document.querySelectorAll('.front');
 
-        function shuffleDeck() {
-            for (var i=0;i<cards.length;i++) {
-                var randomNum = Math.floor((Math.random() * cardArr.length));
-                cards[i].style.backgroundImage = 'url('+imgArr[randomNum]+')';
-                cards[i].style.backgroundPosition = 'center';
-                cards[i].style.backgroundSize = '140%';
-                cards[i].style.backgroundRepeat = 'no-repeat';
-                cards[i].setAttribute('compare', cardArr[randomNum] + '');
-                cardArr.splice(randomNum, 1);
-                imgArr.splice(randomNum, 1);
-            }
-        }
-        if (!slowDown) {
-            shuffleDeck();
-        }
-        else {
-            setTimeout(function() {
-                shuffleDeck();
-            }, 1000);
+    function shuffleDeck() {
+        for (var i=0;i<cards.length;i++) {
+            var randomNum = Math.floor((Math.random() * cardArr.length));
+            cards[i].style.backgroundImage = 'url('+imgArr[randomNum]+')';
+            cards[i].style.backgroundPosition = 'center';
+            cards[i].style.backgroundSize = '140%';
+            cards[i].style.backgroundRepeat = 'no-repeat';
+            cards[i].setAttribute('compare', cardArr[randomNum] + '');
+            cardArr.splice(randomNum, 1);
+            imgArr.splice(randomNum, 1);
         }
     }
+    if (!slowDown) {
+        shuffleDeck();
+    }
+    else {
+        setTimeout(function() {
+            shuffleDeck();
+        }, 1000);
+    }
+}
 function cardHandler(event) {
     if (cardCount === 0 && playerOne === true) {
         //if it's the first card store that card and increase card count to 1
@@ -178,7 +184,6 @@ function cardHandler(event) {
 }
 
 function compare() {
-    console.log(firstCard.parentNode, secondCard.parentNode);
     if (first === second) {
         //if the cards match things match here and card count get's reset to 0
         setTimeout(function() {
